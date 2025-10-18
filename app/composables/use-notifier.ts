@@ -1,4 +1,4 @@
-export function useNotifier() {
+export const useNotifier = () => {
     const confirm = useConfirm();
     const toast = useToast();
 
@@ -51,4 +51,4 @@ export function useNotifier() {
         notifyInfo,
         askConfirm
     };
-}
+};

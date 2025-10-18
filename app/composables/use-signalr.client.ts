@@ -1,6 +1,6 @@
 import * as signalR from '@microsoft/signalr';
 
-export function useSignalR(hubUrl: string) {
+export const useSignalR = (hubUrl: string) => {
     const config = useRuntimeConfig();
     const connection = ref<signalR.HubConnection | null>(null);
     const isConnected = ref<boolean>(false);
@@ -53,4 +53,4 @@ export function useSignalR(hubUrl: string) {
         invoke,
         isConnected
     };
-}
+};

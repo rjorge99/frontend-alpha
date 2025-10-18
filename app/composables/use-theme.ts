@@ -1,4 +1,4 @@
-export function useTheme() {
+export const useTheme = () => {
     const themeCookie = useCookie('alpha-theme', { default: () => 'alpha' });
 
     const setTheme = (themeName: string) => {
@@ -7,12 +7,9 @@ export function useTheme() {
 
         // Quitar clases anteriores que empiecen con 'app-'
         html.classList.forEach((cls) => {
-            if (cls.startsWith(themeClassPrefix)) {
-                html.classList.remove(cls);
-            }
+            if (cls.startsWith(themeClassPrefix)) html.classList.remove(cls);
         });
 
-        console.log('them');
         if (themeName !== 'alpha') {
             // Si tema NO es alpha, agregar clase y link CSS
             html.classList.add(`${themeClassPrefix}${themeName}`);
@@ -30,11 +27,9 @@ export function useTheme() {
             }
         } else {
             // Si tema es alpha, sólo quitar clases y eliminar link si existe
-            // (No agregamos clase ni link porque es el tema base)
+            // (No agregamos clase ni link porque es el tema esta agregado en tiempo de compilacion desde assets/css/layout)
             const link = document.getElementById('theme-css');
-            if (link) {
-                link.parentNode?.removeChild(link);
-            }
+            if (link) link.parentNode?.removeChild(link);
         }
 
         // Guardar en cookie para persistencia
@@ -43,9 +38,8 @@ export function useTheme() {
 
     // Al montar, establecer el tema si no está
     const initTheme = () => {
-        if (import.meta.client) {
-            setTheme(themeCookie.value);
-        }
+        // en caso de estar del lado de cliente
+        if (import.meta.client) setTheme(themeCookie.value);
     };
 
     return {
@@ -53,4 +47,4 @@ export function useTheme() {
         setTheme,
         initTheme
     };
-}
+};
