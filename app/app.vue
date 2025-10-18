@@ -37,7 +37,7 @@
 <!-- <template>
     <Toast position="bottom-right" group="br" />
     <ConfirmDialog />
-    <GlobalLoading />
+    <Loading />
     <NuxtLayout>
         <NuxtPage />
     </NuxtLayout>

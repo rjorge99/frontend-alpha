@@ -26,7 +26,9 @@ export const useBreakpoint = () => {
     }
 
     const up = (name: string) => width.value >= (breakpointValues[name] ?? 0);
-    const down = (name: string) => width.value < (breakpointValues[name] ?? 0);
+    const down = (name: string) => {
+        return width.value < (breakpointValues[name] ?? 0);
+    };
 
     useEventListener(window, 'resize', update);
 

@@ -1,4 +1,4 @@
-import { authService } from '~/services/authenticationService';
+import { authService } from '~/services/authentication-service';
 
 const menu = [
     {

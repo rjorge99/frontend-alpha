@@ -1,7 +1,7 @@
 export const useUiStore = defineStore(
     'ui',
     () => {
-        const isGlobalLoading = ref(false);
+        const isLoading = ref(false);
         const menuItems = ref<any[]>([]);
         const nombreEmpresa = ref('');
 
@@ -9,8 +9,8 @@ export const useUiStore = defineStore(
             menuItems.value = items;
         };
 
-        const setLoading = (isLoading: boolean) => {
-            isGlobalLoading.value = isLoading;
+        const setLoading = (loadingStatus: boolean) => {
+            isLoading.value = loadingStatus;
         };
 
         const setNombreEmpresa = (nombre: string) => {
@@ -18,12 +18,12 @@ export const useUiStore = defineStore(
         };
 
         const reset = () => {
-            isGlobalLoading.value = false;
+            isLoading.value = false;
             menuItems.value = [];
         };
 
         return {
-            isGlobalLoading,
+            isLoading,
             menuItems,
             nombreEmpresa,
             setLoading,
