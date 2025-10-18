@@ -4,7 +4,7 @@
     const themes = [
         { label: 'Alpha', value: 'alpha' },
         { label: 'Orange', value: 'orange' },
-        { label: 'Red', value: 'red' }
+        { label: 'Blue', value: 'blue' }
     ];
     const selectedTheme = ref(currentTheme.value);
 

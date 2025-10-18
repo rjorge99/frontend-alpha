@@ -51,6 +51,7 @@
     <div
         class="h-screen px-6 py-20 md:px-20 lg:px-60 flex justify-center items-center transition-all duration-500">
         <div class="absolute top-2 right-2 flex justify-center items-center gap-2">
+            <ThemeSelector />
             <LanguageSelector />
         </div>
         <Card
