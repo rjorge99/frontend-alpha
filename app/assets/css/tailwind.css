@@ -27,7 +27,7 @@
     --color-surface-overlay: var(--p-surface-overlay);
     --color-surface-highlight: var(--p-surface-highlight);
 
-    --color-icon-light: var(--p-icon-light);
+    --color-font-light: var(--p-font-light);
 
     --animate-infinite-scroll: infinite-scroll 40s linear infinite;
 

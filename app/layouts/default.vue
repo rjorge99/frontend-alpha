@@ -1,10 +1,12 @@
 <script setup lang="ts">
-    const uiStore = useUiStore();
-    const breakpoint = useBreakpoint();
+    const route = useRoute();
+    const isShowingMenuDiagramatico = computed(() => route.path === '/');
+
+    const layoutStore = useLayoutStore();
     const componentClass = computed(() => ({
-        'diagram-showing': uiStore.isShowingMenuDiagramatico && breakpoint.up('sm'),
-        'content-showing': !uiStore.isShowingMenuDiagramatico && breakpoint.up('sm'),
-        'sidebar-closed': !uiStore.isSidebarShowing
+        'diagram-showing': isShowingMenuDiagramatico,
+        'content-showing': !isShowingMenuDiagramatico,
+        'sidebar-closed': !layoutStore.isSidebarShowing
     }));
 </script>
 

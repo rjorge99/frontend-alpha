@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    const uiStore = useUiStore();
+    const layoutStore = useLayoutStore();
 </script>
 
 <template>
@@ -8,7 +8,7 @@
             size="small"
             icon="pi pi-bars"
             aria-label="Toggle menu"
-            @click="uiStore.toggleSidebar" />
+            @click="layoutStore.toggleSidebar" />
         <div class="flex justify-center items-center gap-2">
             <LanguageSelector />
             <button

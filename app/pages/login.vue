@@ -53,7 +53,7 @@
             <LanguageSelector />
         </div>
         <Card
-            class="p-8 md:p-12 shadow-sm rounded-2xl w-full max-w-sm mx-auto flex flex-col gap-8">
+            class="p-8 md:p-12 shadow-sm rounded-2xl w-full max-w-sm mx-auto flex flex-col gap-8 bg-surface-dark! text-font-light!">
             <template #content>
                 <div class="flex flex-col items-center gap-4">
                     <div class="flex items-center gap-4">
@@ -92,7 +92,7 @@
                             v-model="username"
                             placeholder="Username"
                             @keydown.enter="loginUser"
-                            class="w-full px-3 py-2 shadow-sm rounded-lg" />
+                            class="w-full px-3 py-2 shadow-sm rounded-full!" />
                     </div>
                     <div class="flex flex-col gap-2 w-full">
                         <label for="password1" class="font-medium leading-normal">{{
@@ -108,7 +108,7 @@
                             :toggleMask="true"
                             :feedback="false"
                             @keydown.enter="loginUser"
-                            input-class="w-full!" />
+                            input-class="w-full! rounded-full" />
                     </div>
                     <div
                         class="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-3 sm:gap-0">
@@ -119,24 +119,15 @@
                         >
                     </div>
                 </div>
-                <div class="flex gap-4 flex-col">
-                    <Button
-                        :label="t('entrar')"
-                        icon="pi pi-user"
-                        @click="loginUser"
-                        class="w-full py-2 flex justify-center items-center gap-2">
-                        <template #icon>
-                            <i class="pi pi-user text-base! leading-normal!" />
-                        </template>
-                    </Button>
-                    <Button
-                        label="Primary"
-                        class="w-full py-2 flex justify-center items-center gap-2" />
-                    <Button
-                        label="Secondary"
-                        severity="secondary"
-                        class="w-full py-2 flex justify-center items-center gap-2" />
-                </div>
+                <Button
+                    :label="t('entrar')"
+                    icon="pi pi-user"
+                    @click="loginUser"
+                    class="w-full py-2 flex justify-center items-center gap-2">
+                    <template #icon>
+                        <i class="pi pi-user text-base! leading-normal!" />
+                    </template>
+                </Button>
             </template>
         </Card>
     </div>
