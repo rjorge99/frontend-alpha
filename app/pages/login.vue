@@ -48,12 +48,13 @@
 </script>
 
 <template>
-    <div class="h-screen px-6 py-20 md:px-20 lg:px-60 flex justify-center items-center">
+    <div
+        class="h-screen px-6 py-20 md:px-20 lg:px-60 flex justify-center items-center transition-all duration-500">
         <div class="absolute top-2 right-2 flex justify-center items-center gap-2">
             <LanguageSelector />
         </div>
         <Card
-            class="p-8 md:p-12 shadow-sm rounded-2xl w-full max-w-sm mx-auto flex flex-col gap-8 bg-surface-dark! text-font-light!">
+            class="p-8 shadow-sm rounded-2xl w-full max-w-sm mx-auto flex flex-col gap-8 bg-surface-dark! text-font-light!">
             <template #content>
                 <div class="flex flex-col items-center gap-4">
                     <div class="flex items-center gap-4">
@@ -71,15 +72,15 @@
                                 class="fill-surface-700 dark:fill-surface-200" />
                         </svg>
                     </div>
-                    <div class="flex flex-col items-center gap-2 w-full">
+                    <div class="flex flex-col items-center gap-1 w-full">
                         <div
                             class="text-2xl font-semibold leading-tight text-center w-full">
                             {{ t('bienvenido') }}
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col gap-6 w-full mb-5">
-                    <div class="flex flex-col gap-2 w-full">
+                <div class="flex flex-col gap-3 w-full mb-5">
+                    <div class="flex flex-col gap-1 w-full">
                         <label for="usuario" class="font-medium leading-normal">{{
                             t('usuario')
                         }}</label>
@@ -94,7 +95,7 @@
                             @keydown.enter="loginUser"
                             class="w-full px-3 py-2 shadow-sm rounded-full!" />
                     </div>
-                    <div class="flex flex-col gap-2 w-full">
+                    <div class="flex flex-col gap-1 w-full">
                         <label for="password1" class="font-medium leading-normal">{{
                             t('password')
                         }}</label>
