@@ -1,6 +1,7 @@
 // Variables de uso general para layout
 $topbar-height: 45px;
 $topbar-padding: 0.5rem;
+$sidebar-width: 250px;
 
 body {
     height: 100vh;
@@ -55,8 +56,8 @@ body {
     position: sticky;
     text-wrap: nowrap;
     top: 0;
-    // transition: 300ms ease-in-out;
-    width: 250px;
+    transition: 300ms ease-in-out;
+    width: $sidebar-width;
     overflow: hidden;
 }
 
@@ -93,7 +94,7 @@ body {
         overflow: hidden;
         position: fixed;
         top: $topbar-height;
-        width: 50%;
+        width: $sidebar-width;
         z-index: 20;
         background-color: var(--p-surface-dark);
         z-index: 11;
