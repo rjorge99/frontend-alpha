@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
+
+@theme {
+    /* --font-sans: InterVariable, sans-serif;
+    --font-sans--font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11'; */
+
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+    --breakpoint-3xl: 2000px;
+    --breakpoint-4xl: 2560px;
+
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1536px;
+    --container-3xl: 2000px;
+    --container-4xl: 2560px;
+
+    --color-surface-ground: var(--p-surface-ground);
+    --color-surface-base: var(--p-surface-base);
+    --color-surface-dark: var(--p-surface-dark);
+    --color-surface-overlay: var(--p-surface-overlay);
+    --color-surface-highlight: var(--p-surface-highlight);
+
+    --color-icon-light: var(--p-icon-light);
+
+    --animate-infinite-scroll: infinite-scroll 40s linear infinite;
+
+    @keyframes infinite-scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-100%);
+        }
+    }
+}

@@ -1,0 +1,110 @@
+// Variables de uso general para layout
+$topbar-height: 45px;
+$topbar-padding: 0.5rem;
+
+body {
+    height: 100vh;
+}
+
+#main-site {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: $topbar-height 1fr 120px;
+    min-height: 100vh;
+    background-color: var(--p-surface-dark);
+
+    grid-template-areas:
+        'topbar topbar'
+        'sidebar main'
+        'sidebar footer';
+
+    &.content-showing {
+        #main-content {
+            padding: 2rem;
+        }
+    }
+
+    &.diagram-showing {
+        #main-content {
+            border-radius: 0 16px 16px 0;
+            margin: 0 1rem 0 0;
+            padding: 1.5rem;
+        }
+
+        &.sidebar-closed {
+            #main-content {
+                border-radius: 16px 16px;
+                margin: 0 1rem 0 1rem;
+            }
+        }
+    }
+
+    &.sidebar-closed {
+        #sidebar {
+            width: 0;
+        }
+    }
+}
+
+#sidebar {
+    align-self: start;
+    display: grid;
+    grid-area: sidebar;
+    grid-template-rows: 1fr;
+    height: 100%;
+    position: sticky;
+    text-wrap: nowrap;
+    top: 0;
+    // transition: 300ms ease-in-out;
+    width: 250px;
+    overflow: hidden;
+}
+
+#topbar {
+    grid-area: topbar;
+    padding: $topbar-padding;
+    position: sticky;
+    top: 0;
+}
+
+#main-content {
+    grid-area: main;
+    background-color: var(--p-surface-ground);
+}
+
+#footer {
+    bottom: 0;
+    grid-area: footer;
+    position: sticky;
+}
+
+@media (max-width: 640px) {
+    #main-site {
+        grid-template-rows: $topbar-height 1fr;
+    }
+
+    #main-content {
+        margin: 0 1rem 3rem;
+        border-radius: 16px 16px;
+    }
+
+    #sidebar {
+        display: block;
+        overflow: hidden;
+        position: fixed;
+        top: $topbar-height;
+        width: 50%;
+        z-index: 20;
+        background-color: var(--p-surface-dark);
+        z-index: 11;
+        // box-shadow: 5px 0 13px 1px black; //todo: mejorar\
+
+        #sidebar-footer {
+            display: none;
+        }
+    }
+
+    #footer {
+        display: none;
+    }
+}
