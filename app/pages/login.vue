@@ -44,10 +44,6 @@
                 });
         }
     };
-
-    onMounted(() => {
-        console.log('monted');
-    });
 </script>
 
 <template>

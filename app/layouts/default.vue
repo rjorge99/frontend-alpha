@@ -1,7 +1,9 @@
 <script setup>
     const { layoutConfig, layoutState, isSidebarActive } = useLayout();
+    const { isChangingLanguage } = useAppearence();
     const { locale } = useI18n();
     const outsideClickListener = ref(null);
+    const appearence = useAppearence();
 
     watch(isSidebarActive, (newVal) => {
         if (newVal) {
@@ -19,7 +21,8 @@
                 layoutState.staticMenuDesktopInactive &&
                 layoutConfig.menuMode === 'static',
             'layout-overlay-active': layoutState.overlayMenuActive,
-            'layout-mobile-active': layoutState.staticMenuMobileActive
+            'layout-mobile-active': layoutState.staticMenuMobileActive,
+            'lang-changing': appearence.isLanguageChanging.value
         };
     });
 

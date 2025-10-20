@@ -2,6 +2,7 @@ export const useUiStore = defineStore(
     'ui',
     () => {
         const isLoading = ref(false);
+
         const menuItems = ref<any[]>([]);
         const nombreEmpresa = ref('');
 
@@ -26,6 +27,7 @@ export const useUiStore = defineStore(
             isLoading,
             menuItems,
             nombreEmpresa,
+
             setLoading,
             loadMenuItems,
             setNombreEmpresa,

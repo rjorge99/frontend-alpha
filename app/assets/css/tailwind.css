@@ -51,16 +51,8 @@
     opacity: 0;
 }
 
-.i18n-fade {
-    transition: opacity 0.3s ease;
-}
-
-.i18n-fade-enter-active,
-.i18n-fade-leave-active {
-    transition: opacity 0.3s ease;
-}
-
-.i18n-fade-enter-from,
-.i18n-fade-leave-to {
-    opacity: 0;
+/* Usado cuando se cambia el idioma */
+.lang-changing {
+    transition: opacity 0.1s ease;
+    opacity: 0; /* o algún efecto */
 }

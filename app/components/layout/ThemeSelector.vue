@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    const { currentTheme, setTheme } = useTheme();
+    const { currentTheme, setTheme } = useAppearence();
 
     const themes = [
         { label: 'Alpha', value: 'alpha' },

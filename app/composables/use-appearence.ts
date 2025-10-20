@@ -1,5 +1,8 @@
-export const useTheme = () => {
-    const themeCookie = useCookie('alpha-theme', { default: () => 'alpha' });
+const isLanguageChanging = ref(false);
+
+export const useAppearence = () => {
+    const currentTheme = useCookie('alpha-theme', { default: () => 'alpha' });
+    const { setLocale } = useI18n();
 
     const setTheme = (themeName: string) => {
         const applyTheme = () => {
@@ -33,15 +36,26 @@ export const useTheme = () => {
             }
 
             // Guardar en cookie para persistencia
-            themeCookie.value = themeName;
+            currentTheme.value = themeName;
         };
 
         if (!document.startViewTransition) applyTheme();
         else document.startViewTransition(applyTheme);
     };
 
+    const changeLanguage = async (lang: 'es' | 'en') => {
+        isLanguageChanging.value = true;
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        setLocale(lang);
+
+        isLanguageChanging.value = false;
+    };
+
     return {
-        currentTheme: themeCookie,
-        setTheme
+        currentTheme,
+        setTheme,
+
+        isLanguageChanging,
+        changeLanguage
     };
 };
