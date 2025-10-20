@@ -30,7 +30,7 @@
             server: false,
             watch: false,
             onRequest: () => {
-                uiStore.setLoading(true);
+                // uiStore.setLoading(true);
             },
             onResponse: async ({ response }) => {
                 uiStore.setLoading(false);
@@ -67,7 +67,7 @@
 </script>
 <template>
     <Transition name="fade">
-        <div class="font-TTCRegular 3xl:text-2xl">
+        <div v-if="factura" class="font-TTCRegular 3xl:text-2xl">
             <div class="flex gap-[10px] mb-[20px] font-TTCDemibold">
                 <Button
                     type="button"
