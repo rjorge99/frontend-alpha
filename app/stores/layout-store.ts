@@ -24,7 +24,9 @@ export const useLayoutStore = defineStore(
     },
     {
         persist: {
-            storage: piniaPluginPersistedstate.cookies()
+            storage: piniaPluginPersistedstate.cookies({
+                path: '/'
+            })
         }
     }
 );

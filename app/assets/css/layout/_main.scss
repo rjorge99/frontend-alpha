@@ -9,56 +9,34 @@ body {
 
 #main-site {
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: $topbar-height 1fr 120px;
+    grid-template-columns: 1fr;
+    grid-template-rows: $topbar-height 1fr;
     min-height: 100vh;
     background-color: var(--p-surface-dark);
 
     grid-template-areas:
-        'topbar topbar'
-        'sidebar main'
-        'sidebar footer';
-
-    &.content-showing {
-        #main-content {
-            padding: 2rem;
-        }
-    }
-
-    &.diagram-showing {
-        #main-content {
-            border-radius: 0 16px 16px 0;
-            margin-right: 1rem;
-            padding: 1.5rem;
-        }
-
-        &.sidebar-closed {
-            #main-content {
-                border-radius: 16px 16px;
-                margin-left: 1rem;
-            }
-        }
-    }
+        'topbar'
+        'lower';
 
     &.sidebar-closed {
+        #main-content {
+            border-radius: 16px 16px;
+            margin-left: 1rem;
+        }
+
         #sidebar {
             width: 0;
+            transform: translateX(-100%);
+            overflow: hidden;
         }
     }
 }
 
-#sidebar {
-    align-self: start;
-    display: grid;
-    grid-area: sidebar;
-    grid-template-rows: 1fr;
-    height: 100%;
-    position: sticky;
-    text-wrap: nowrap;
-    top: 0;
-    transition: 650ms ease-in-out;
-    width: $sidebar-width;
-    overflow: hidden;
+#main-content {
+    border-radius: 0 16px 16px 0;
+    margin-right: 1rem;
+    padding: 1.5rem;
+    transition: border-radius 0.3s ease, margin 0.3s ease;
 }
 
 #topbar {
@@ -66,44 +44,58 @@ body {
     padding: $topbar-padding;
     position: sticky;
     top: 0;
+    background-color: var(--p-surface-dark);
+}
+
+#layout-lower-container {
+    grid-area: lower;
+    display: flex;
+}
+
+#sidebar {
+    background-color: var(--p-surface-dark);
+    width: $sidebar-width;
+    overflow: hidden;
+    transition: transform 0.8s ease-in-out, width 0.8s ease-in-out;
+    display: grid;
+    grid-template-rows: 1fr 100px;
+    text-wrap: nowrap;
+}
+
+#lower-right-container {
+    flex: 1;
+    display: grid;
+    grid-template-rows: 1fr 120px;
 }
 
 #main-content {
-    grid-area: main;
     background-color: var(--p-surface-ground);
 }
 
 #footer {
-    bottom: 0;
-    grid-area: footer;
     position: sticky;
+    bottom: 0;
+    background-color: var(--p-surface-dark);
 }
 
 @media (max-width: 640px) {
-    #main-site {
-        grid-template-rows: $topbar-height 1fr;
-
-        &.diagram-showing {
-            #main-content {
-                margin-bottom: 3rem;
-            }
-        }
+    #lower-right-container {
+        grid-template-rows: 1fr;
     }
 
     #main-content {
-        border-radius: 16px 16px;
+        margin-bottom: 2rem;
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 16px;
+        margin-left: 1rem;
     }
 
     #sidebar {
-        display: block;
-        overflow: hidden;
-        position: fixed;
-        top: $topbar-height;
-        width: $sidebar-width;
-        z-index: 20;
-        background-color: var(--p-surface-dark);
-        z-index: 11;
-        // box-shadow: 5px 0 13px 1px black; //todo: mejorar\
+        grid-template-rows: 1fr;
+        position: absolute;
+        height: calc(100vh - $topbar-height);
+        z-index: 99; // El loading tiene z-index de 9999
+        // todo: agregar la sombra trasera
 
         #sidebar-footer {
             display: none;
