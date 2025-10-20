@@ -58,5 +58,8 @@ export default defineNuxtConfig({
                 file: 'en.json'
             }
         ]
+    },
+    piniaPluginPersistedstate: {
+        key: 'alpha-%id'
     }
 });

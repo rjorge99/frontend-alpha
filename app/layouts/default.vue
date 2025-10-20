@@ -1,8 +1,10 @@
 <script setup lang="ts">
     const layoutStore = useLayoutStore();
+    const router = useRoute();
 
     const componentClass = computed(() => ({
-        'sidebar-closed': !layoutStore.isSidebarShowing
+        'sidebar-closed': !layoutStore.isSidebarShowing,
+        'outside-home': router.path !== '/'
     }));
 </script>
 

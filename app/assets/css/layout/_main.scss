@@ -2,6 +2,9 @@
 $topbar-height: 45px;
 $topbar-padding: 0.5rem;
 $sidebar-width: 250px;
+$footer-height: 120px;
+$main-content-margin-sides: 2rem;
+$main-content-margin-bottom: 2rem;
 
 body {
     height: 100vh;
@@ -21,7 +24,7 @@ body {
     &.sidebar-closed {
         #main-content {
             border-radius: 16px 16px;
-            margin-left: 1rem;
+            margin-left: $main-content-margin-sides;
         }
 
         #sidebar {
@@ -30,13 +33,31 @@ body {
             overflow: hidden;
         }
     }
+
+    &.outside-home {
+        #lower-right-container {
+            // grid-template-rows: 1fr;
+
+            #main-content {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        #footer {
+            // display: none;
+
+            height: 0;
+            opacity: 0;
+        }
+    }
 }
 
 #main-content {
     border-radius: 0 16px 16px 0;
-    margin-right: 1rem;
+    margin-right: $main-content-margin-sides;
     padding: 1.5rem;
-    transition: border-radius 0.3s ease, margin 0.3s ease;
+    transition: border-radius 0.9s ease;
 }
 
 #topbar {
@@ -56,16 +77,20 @@ body {
     background-color: var(--p-surface-dark);
     width: $sidebar-width;
     overflow: hidden;
-    transition: transform 0.8s ease-in-out, width 0.8s ease-in-out;
+    transition: transform 0.5s ease, width 0.7s ease;
     display: grid;
     grid-template-rows: 1fr 100px;
     text-wrap: nowrap;
+
+    position: sticky;
+    top: $topbar-height;
+    height: calc(100vh - $topbar-height);
 }
 
 #lower-right-container {
     flex: 1;
     display: grid;
-    grid-template-rows: 1fr 120px;
+    grid-template-rows: 1fr auto;
 }
 
 #main-content {
@@ -73,18 +98,35 @@ body {
 }
 
 #footer {
+    height: $footer-height;
     position: sticky;
     bottom: 0;
     background-color: var(--p-surface-dark);
+
+    transition: height 0.7s ease, opacity 0.7s ease;
+    overflow: hidden;
+    opacity: 1;
 }
 
 @media (max-width: 640px) {
+    #main-site {
+        &.outside-home {
+            #lower-right-container {
+                #main-content {
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
     #lower-right-container {
         grid-template-rows: 1fr;
     }
 
     #main-content {
-        margin-bottom: 2rem;
+        margin-bottom: $main-content-margin-bottom;
         border-top-left-radius: 16px;
         border-bottom-left-radius: 16px;
         margin-left: 1rem;
