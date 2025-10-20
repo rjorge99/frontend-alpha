@@ -57,19 +57,17 @@
 </script>
 
 <template>
-    <Transition name="i18n-fade" mode="out-in">
-        <div :key="locale" class="layout-wrapper" :class="containerClass">
-            <AppTopbar />
-            <AppSidebar />
-            <div class="layout-main-container">
-                <div class="layout-main relative">
-                    <slot />
-                </div>
-                <AppFooter />
+    <div class="layout-wrapper" :class="containerClass">
+        <AppTopbar />
+        <AppSidebar />
+        <div class="layout-main-container">
+            <div class="layout-main relative">
+                <slot />
             </div>
-
-            <div class="layout-mask animate-fadein"></div>
+            <AppFooter />
         </div>
-    </Transition>
+
+        <div class="layout-mask animate-fadein"></div>
+    </div>
     <Toast />
 </template>

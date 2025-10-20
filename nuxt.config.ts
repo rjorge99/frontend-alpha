@@ -39,7 +39,9 @@ export default defineNuxtConfig({
                 'Password',
                 'Select',
                 'SelectButton',
-                'Toast'
+                'Toast',
+                'InputGroupAddon',
+                'InputGroup'
             ]
         }
     },
