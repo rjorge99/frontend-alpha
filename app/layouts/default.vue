@@ -1,22 +1,75 @@
-<script setup lang="ts">
-    const layoutStore = useLayoutStore();
-    const router = useRoute();
+<script setup>
+    const { layoutConfig, layoutState, isSidebarActive } = useLayout();
+    const { locale } = useI18n();
+    const outsideClickListener = ref(null);
 
-    const componentClass = computed(() => ({
-        'sidebar-closed': !layoutStore.isSidebarShowing,
-        'outside-home': router.path !== '/'
-    }));
+    watch(isSidebarActive, (newVal) => {
+        if (newVal) {
+            bindOutsideClickListener();
+        } else {
+            unbindOutsideClickListener();
+        }
+    });
+
+    const containerClass = computed(() => {
+        return {
+            'layout-overlay': layoutConfig.menuMode === 'overlay',
+            'layout-static': layoutConfig.menuMode === 'static',
+            'layout-static-inactive':
+                layoutState.staticMenuDesktopInactive &&
+                layoutConfig.menuMode === 'static',
+            'layout-overlay-active': layoutState.overlayMenuActive,
+            'layout-mobile-active': layoutState.staticMenuMobileActive
+        };
+    });
+
+    function bindOutsideClickListener() {
+        if (!outsideClickListener.value) {
+            outsideClickListener.value = (event) => {
+                if (isOutsideClicked(event)) {
+                    layoutState.overlayMenuActive = false;
+                    layoutState.staticMenuMobileActive = false;
+                    layoutState.menuHoverActive = false;
+                }
+            };
+            document.addEventListener('click', outsideClickListener.value);
+        }
+    }
+
+    function unbindOutsideClickListener() {
+        if (outsideClickListener.value) {
+            document.removeEventListener('click', outsideClickListener);
+            outsideClickListener.value = null;
+        }
+    }
+
+    function isOutsideClicked(event) {
+        const sidebarEl = document.querySelector('.layout-sidebar');
+        const topbarEl = document.querySelector('.layout-menu-button');
+
+        return !(
+            sidebarEl.isSameNode(event.target) ||
+            sidebarEl.contains(event.target) ||
+            topbarEl.isSameNode(event.target) ||
+            topbarEl.contains(event.target)
+        );
+    }
 </script>
 
 <template>
-    <div id="main-site" :class="componentClass">
-        <Topbar />
-        <div id="layout-lower-container">
-            <Sidebar />
-            <div id="lower-right-container">
-                <MainContent><slot /></MainContent>
-                <Footer />
+    <Transition name="i18n-fade" mode="out-in">
+        <div :key="locale" class="layout-wrapper" :class="containerClass">
+            <AppTopbar />
+            <AppSidebar />
+            <div class="layout-main-container">
+                <div class="layout-main relative">
+                    <slot />
+                </div>
+                <AppFooter />
             </div>
+
+            <div class="layout-mask animate-fadein"></div>
         </div>
-    </div>
+    </Transition>
+    <Toast />
 </template>

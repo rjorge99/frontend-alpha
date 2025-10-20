@@ -40,3 +40,27 @@
         }
     }
 }
+
+/* Fade transition */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.i18n-fade {
+    transition: opacity 0.3s ease;
+}
+
+.i18n-fade-enter-active,
+.i18n-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.i18n-fade-enter-from,
+.i18n-fade-leave-to {
+    opacity: 0;
+}

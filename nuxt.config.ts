@@ -20,7 +20,7 @@ export default defineNuxtConfig({
         '@vueuse/nuxt',
         '@nuxtjs/i18n'
     ],
-    css: ['assets/css/layout/layout.scss', 'assets/css/tailwind.css'],
+    css: ['assets/css/primevuelayout/layout.scss', 'assets/css/tailwind.css'],
     primevue: {
         importTheme: { from: '~/themes/alpha-theme.js' },
         autoImport: false,

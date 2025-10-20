@@ -5,7 +5,7 @@
         inicio: 1,
         fin: 20
     });
-
+    const { t } = useI18n({ useScope: 'local' });
     const { width } = useBreakpoint();
     const tableSize = computed(() => {
         if (width.value >= 2000) return 'medium';
@@ -69,26 +69,26 @@
             @page="onPageChange">
             <template #header>
                 <div>
-                    <span class="text-2xl font-bold">Listado de Facturas</span>
+                    <span class="text-2xl font-bold">{{ t('header') }}</span>
                 </div>
             </template>
-            <Column header="Cve" field="cve_factu" />
-            <Column header="Folio" field="no_fac" />
-            <Column header="Fecha" field="falta_fac" />
-            <Column header="Seg" bodyStyle="text-align: center">
+            <Column :header="t('cve')" field="cve_factu" />
+            <Column :header="t('folio')" field="no_fac" />
+            <Column :header="t('fecha')" field="falta_fac" />
+            <Column :header="t('seg')" bodyStyle="text-align: center">
                 <template #body="slotProps">
                     <i
                         class="pi pi-chevron-circle-right"
                         style="font-size: 20px; color: #10b981"></i>
                 </template>
             </Column>
-            <Column header="Cliente" field="nom_cte" />
-            <Column header="Almacén" field="lugar" />
-            <Column header="Agente" field="nom_age" />
-            <Column header="Total" field="total_fac" />
-            <Column header="Moneda" field="cve_mon" />
-            <Column header="Estatus" field="status_fac" />
-            <Column header="CFDI">
+            <Column :header="t('cliente')" field="nom_cte" />
+            <Column :header="t('almacen')" field="lugar" />
+            <Column :header="t('agente')" field="nom_age" />
+            <Column :header="t('total')" field="total_fac" />
+            <Column :header="t('moneda')" field="cve_mon" />
+            <Column :header="t('estatus')" field="status_fac" />
+            <Column :header="t('cfdi')">
                 <template #body="{ data }">
                     <i class="pi pi-file-pdf" style="font-size: 20px; color: #e28989"></i>
                     <i class="pi pi-file" style="font-size: 20px; color: #10b981"></i>
@@ -98,6 +98,45 @@
                         @click="selectFactura(data)"></i>
                 </template>
             </Column>
+            <template #footer>
+                {{ t('footer') }}
+                {{ listadoFacturas ? listadoFacturas.totalRegistros : 0 }}.
+            </template>
         </DataTable>
     </ClientOnly>
 </template>
+
+<i18n lang="json">
+{
+    "es": {
+        "header": "Listado de facturas",
+        "cve": "Cve",
+        "folio": "Folio",
+        "fecha": "Fecha",
+        "seg": "Seg",
+        "cliente": "Cliente",
+        "almacen": "Almacen",
+        "agente": "Agente",
+        "total": "Total",
+        "moneda": "Moneda",
+        "estatus": "Estatus",
+        "cfdi": "CFDI",
+        "footer": "Total de productos"
+    },
+    "en": {
+        "header": "Invoice List",
+        "cve": "Code",
+        "folio": "Folio",
+        "fecha": "Date",
+        "seg": "Seg",
+        "cliente": "Customer",
+        "almacen": "Warehouse",
+        "agente": "Agent",
+        "total": "Total",
+        "moneda": "Currency",
+        "estatus": "Status",
+        "cfdi": "CFDI",
+        "footer": "Total Products"
+    }
+}
+</i18n>

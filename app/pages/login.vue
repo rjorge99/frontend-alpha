@@ -10,7 +10,7 @@
     const { t } = useI18n({ useScope: 'local' });
 
     const { notifyError, askConfirm } = useNotifier();
-    const authStore = useAuthenticationStore();
+    const authenticationStore = useAuthenticationStore();
     const password = ref('');
     const username = ref('');
     const empresaSeleccionada = ref({});
@@ -20,7 +20,7 @@
         try {
             if (username.value.trim() === '' || password.value.trim() === '') return;
 
-            await authStore.login(
+            await authenticationStore.login(
                 username.value,
                 password.value,
                 liberarSesion.value,

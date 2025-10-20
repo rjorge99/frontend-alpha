@@ -34,16 +34,6 @@
         animation: spin 1s linear infinite;
     }
 
-    /* Fade transition */
-    .fade-enter-active,
-    .fade-leave-active {
-        transition: opacity 0.3s ease;
-    }
-    .fade-enter-from,
-    .fade-leave-to {
-        opacity: 0;
-    }
-
     /* Spinner animation */
     @keyframes spin {
         to {

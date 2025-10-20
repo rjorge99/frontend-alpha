@@ -1,17 +1,19 @@
 <script setup>
-const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
+    import LanguageSelector from '../layout/LanguageSelector.vue';
 
-const authenticationStore = useAuthenticationStore();
-const uiStore = useUiStore();
-const { askConfirm } = useNotifier();
-const { logout } = authenticationStore;
+    const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
 
-const logoutUser = () => {
-    askConfirm({
-        msg: 'Si está trabajando con otra sesión o pestaña del navegador también terminará ahí la sesión. \n\r ¿Está seguro que desea salir del sistema?',
-        onAccept: logout
-    });
-};
+    const authenticationStore = useAuthenticationStore();
+    const uiStore = useUiStore();
+    const { askConfirm } = useNotifier();
+    const { logout } = authenticationStore;
+
+    const logoutUser = () => {
+        askConfirm({
+            msg: 'Si está trabajando con otra sesión o pestaña del navegador también terminará ahí la sesión. \n\r ¿Está seguro que desea salir del sistema?',
+            onAccept: logout
+        });
+    };
 </script>
 <template>
     <div class="layout-topbar">
@@ -28,11 +30,12 @@ const logoutUser = () => {
             {{ uiStore.nombreEmpresa }}
         </div>
 
-        <div class="layout-topbar-actions">
+        <div class="layout-topbar-actions items-center gap-1!">
             <div class="layout-config-menu">
-                <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
+                <LanguageSelector />
+                <!-- <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]"></i>
-                </button>
+                </button> -->
                 <!-- <div class="relative">
                     <button
                         v-styleclass="{
@@ -74,7 +77,10 @@ const logoutUser = () => {
                         <i class="pi pi-inbox"></i>
                         <span>Messages</span>
                     </button> -->
-                    <button type="button" class="layout-topbar-action" @click="logoutUser">
+                    <button
+                        type="button"
+                        class="layout-topbar-action"
+                        @click="logoutUser">
                         <i class="pi pi-sign-out"></i>
                         <span>Salir</span>
                     </button>

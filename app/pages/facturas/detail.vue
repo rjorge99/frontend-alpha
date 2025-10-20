@@ -1,60 +1,68 @@
 <script setup lang="ts">
-import type { DetalleFactura, FacturaResponse, FormaPago, Partida } from '~/types/facturas';
+    import type {
+        DetalleFactura,
+        FacturaResponse,
+        FormaPago,
+        Partida
+    } from '~/types/facturas';
 
-const route = useRoute();
-const router = useRouter();
-const uiStore = useUiStore();
-const clave = computed(() => route.query.clave);
-const folio = computed(() => route.query.folio);
-const pasu = ref(0);
+    const route = useRoute();
+    const router = useRouter();
+    const uiStore = useUiStore();
+    const clave = computed(() => route.query.clave);
+    const folio = computed(() => route.query.folio);
+    const pasu = ref(0);
 
-const factura = ref<DetalleFactura | null>(null);
-const partidas = ref<Partida[] | null>(null);
-const formaPago = ref<FormaPago[] | null>(null);
+    const factura = ref<DetalleFactura | null>(null);
+    const partidas = ref<Partida[] | null>(null);
+    const formaPago = ref<FormaPago[] | null>(null);
 
-const { execute } = useApiLazyFetch<FacturaResponse>('api/empresas/1/clientes/facturas/detalle', {
-    method: 'POST',
-    body: {
-        clave,
-        folio,
-        pasu
-    },
-    server: false,
-    watch: false,
-    onRequest: () => {
-        uiStore.setLoading(true);
-    },
-    onResponse: async ({ response }) => {
-        uiStore.setLoading(false);
-        const _data = response._data as any;
-        factura.value = response._data?.factura as DetalleFactura;
-        formaPago.value = [...(response._data?.formaPago as FormaPago[])];
-        partidas.value = response._data?.partidas as Partida[];
-        router.replace({
-            query: {
-                clave: factura.value.cve_factu.trim(),
-                folio: factura.value.no_fac.trim()
+    const { execute } = useApiLazyFetch<FacturaResponse>(
+        'api/empresas/1/clientes/facturas/detalle',
+        {
+            method: 'POST',
+            body: {
+                clave,
+                folio,
+                pasu
+            },
+            server: false,
+            watch: false,
+            onRequest: () => {
+                uiStore.setLoading(true);
+            },
+            onResponse: async ({ response }) => {
+                uiStore.setLoading(false);
+                const _data = response._data as any;
+                factura.value = response._data?.factura as DetalleFactura;
+                formaPago.value = [...(response._data?.formaPago as FormaPago[])];
+                partidas.value = response._data?.partidas as Partida[];
+                router.replace({
+                    query: {
+                        clave: factura.value.cve_factu.trim(),
+                        folio: factura.value.no_fac.trim()
+                    }
+                });
             }
-        });
-    }
-});
+        }
+    );
 
-function irPrimero() {
-    pasu.value = 1;
-    execute();
-}
-function irAnterior() {
-    pasu.value = 2;
-    execute();
-}
-function irSiguiente() {
-    pasu.value = 3;
-    execute();
-}
-function irUltimo() {
-    pasu.value = 4;
-    execute();
-}
+    function irPrimero() {
+        pasu.value = 1;
+        execute();
+    }
+    function irAnterior() {
+        pasu.value = 2;
+        execute();
+    }
+    function irSiguiente() {
+        pasu.value = 3;
+        execute();
+    }
+    function irUltimo() {
+        pasu.value = 4;
+        execute();
+    }
 </script>
 <template>
     <Transition name="fade">
@@ -122,13 +130,17 @@ function irUltimo() {
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.des_etiq1.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.dato_1.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.dato_1.trim()
+                                    }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.des_etiq2.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.dato_2.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.dato_2.trim()
+                                    }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
@@ -136,13 +148,17 @@ function irUltimo() {
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.des_etiq3.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.dato_3.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.dato_3.trim()
+                                    }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.des_etiq4.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.dato_4.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.dato_4.trim()
+                                    }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
@@ -150,13 +166,17 @@ function irUltimo() {
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.des_etiq5.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.dato_5.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.dato_5.trim()
+                                    }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.des_etiq6.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.dato_6.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.dato_6.trim()
+                                    }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
@@ -164,13 +184,17 @@ function irUltimo() {
                                     <label class="font-TTCBold col-span-3">{{
                                         factura.des_etiq7.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.dato_7.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.dato_7.trim()
+                                    }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBold col-span-3">{{
                                         factura.des_etiq8.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.dato_8.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.dato_8.trim()
+                                    }}</label>
                                 </div>
                             </div>
                         </AccordionContent>
@@ -188,13 +212,17 @@ function irUltimo() {
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.titde1.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.nomde1.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nomde1.trim()
+                                    }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.titde2.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.nomde2.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nomde2.trim()
+                                    }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
@@ -202,13 +230,17 @@ function irUltimo() {
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.titde3.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.nomde3.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nomde3.trim()
+                                    }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.titde4.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.nomde4.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nomde4.trim()
+                                    }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
@@ -216,13 +248,17 @@ function irUltimo() {
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.titde5.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.nomde5.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nomde5.trim()
+                                    }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
                                         factura.titde6.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.nomde6.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nomde6.trim()
+                                    }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
@@ -230,13 +266,17 @@ function irUltimo() {
                                     <label class="font-TTCBold col-span-3">{{
                                         factura.titde7.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.nomde7.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nomde7.trim()
+                                    }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBold col-span-3">{{
                                         factura.titde8.trim()
                                     }}</label>
-                                    <label class="col-span-9">{{ factura.nomde8.trim() }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nomde8.trim()
+                                    }}</label>
                                 </div>
                             </div>
                         </AccordionContent>
@@ -254,13 +294,17 @@ function irUltimo() {
                                     <label class="col-span-3 text-right font-TTCBold"
                                         >Agente 1:</label
                                     >
-                                    <label class="col-span-9">{{ factura.nom_age1 }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nom_age1
+                                    }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-2">
                                     <label class="col-span-3 text-right font-TTCBold"
                                         >Agente 2:</label
                                     >
-                                    <label class="col-span-9">{{ factura.nom_age2 }}</label>
+                                    <label class="col-span-9">{{
+                                        factura.nom_age2
+                                    }}</label>
                                 </div>
                             </div>
                         </AccordionContent>
@@ -316,7 +360,8 @@ function irUltimo() {
                     <AccordionPanel value="0">
                         <AccordionHeader>Descuentos</AccordionHeader>
                         <AccordionContent>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+                            <div
+                                class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                                 <div class="grid grid-cols-12 items-center">
                                     <label class="col-span-3">Descuento 1</label>
                                     <InputGroup class="col-span-9">
