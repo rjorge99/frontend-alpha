@@ -6,6 +6,7 @@
         Partida
     } from '~/types/facturas';
 
+    const { t } = useI18n({ useScope: 'local' });
     const route = useRoute();
     const router = useRouter();
     const uiStore = useUiStore();
@@ -66,27 +67,27 @@
 </script>
 <template>
     <Transition name="fade">
-        <div v-if="factura" class="font-TTCRegular 3xl:text-2xl">
+        <div class="font-TTCRegular 3xl:text-2xl">
             <div class="flex gap-[10px] mb-[20px] font-TTCDemibold">
                 <Button
                     type="button"
-                    label="Primero"
+                    :label="t('primero')"
                     icon="pi pi-angle-double-left"
                     @click="irPrimero" />
                 <Button
                     type="button"
-                    label="Anterior"
+                    :label="t('anterior')"
                     icon="pi pi-angle-left"
                     @click="irAnterior" />
                 <Button
                     type="button"
-                    label="Siguiente"
+                    :label="t('siguiente')"
                     icon="pi pi-angle-right"
                     iconPos="right"
                     @click="irSiguiente" />
                 <Button
                     type="button"
-                    label="Ultimo"
+                    :label="t('ultimo')"
                     icon="pi pi-angle-double-right"
                     iconPos="right"
                     @click="irUltimo" />
@@ -97,24 +98,26 @@
                 </div>
                 <div>
                     <div class="font-TTCDemibold text-3xl">
-                        <span>Factura</span> <span>{{ factura?.no_fac }}</span>
+                        <span>{{ t('factura') }}</span> <span>{{ factura?.no_fac }}</span>
                     </div>
-                    <div>Contado</div>
+                    <div>{{ t('contado') }}</div>
                     <div>02/09/2025</div>
                     <div><span>TC:</span> <span>$18.6440</span></div>
-                    <div><span>Almacén:</span> <span>MONTERREY</span></div>
+                    <div>
+                        <span>{{ t('almacen') }}:</span> <span>MONTERREY</span>
+                    </div>
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 mb-4">
                 <Accordion value="0">
                     <AccordionPanel value="0">
-                        <AccordionHeader>Facturado a</AccordionHeader>
+                        <AccordionHeader>{{ t('facturado') }}</AccordionHeader>
                         <AccordionContent>asdf</AccordionContent>
                     </AccordionPanel>
                 </Accordion>
                 <Accordion value="1">
                     <AccordionPanel value="0">
-                        <AccordionHeader>Entregado a</AccordionHeader>
+                        <AccordionHeader>{{ t('entregado') }}</AccordionHeader>
                         <AccordionContent>asdf</AccordionContent>
                     </AccordionPanel>
                 </Accordion>
@@ -123,77 +126,77 @@
             <div class="mb-4">
                 <Accordion value="3">
                     <AccordionPanel value="0">
-                        <AccordionHeader>Otros datos</AccordionHeader>
+                        <AccordionHeader>{{ t('otros') }}</AccordionHeader>
                         <AccordionContent>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.des_etiq1.trim()
+                                        factura?.des_etiq1.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.dato_1.trim()
+                                        factura?.dato_1.trim()
                                     }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.des_etiq2.trim()
+                                        factura?.des_etiq2.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.dato_2.trim()
-                                    }}</label>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2">
-                                <div class="grid grid-cols-12 gap-4 p-1">
-                                    <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.des_etiq3.trim()
-                                    }}</label>
-                                    <label class="col-span-9">{{
-                                        factura.dato_3.trim()
-                                    }}</label>
-                                </div>
-                                <div class="grid grid-cols-12 gap-4 p-1">
-                                    <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.des_etiq4.trim()
-                                    }}</label>
-                                    <label class="col-span-9">{{
-                                        factura.dato_4.trim()
+                                        factura?.dato_2.trim()
                                     }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.des_etiq5.trim()
+                                        factura?.des_etiq3.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.dato_5.trim()
+                                        factura?.dato_3.trim()
                                     }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.des_etiq6.trim()
+                                        factura?.des_etiq4.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.dato_6.trim()
+                                        factura?.dato_4.trim()
+                                    }}</label>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <div class="grid grid-cols-12 gap-4 p-1">
+                                    <label class="font-TTCBolditalic col-span-3">{{
+                                        factura?.des_etiq5.trim()
+                                    }}</label>
+                                    <label class="col-span-9">{{
+                                        factura?.dato_5.trim()
+                                    }}</label>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-1">
+                                    <label class="font-TTCBolditalic col-span-3">{{
+                                        factura?.des_etiq6.trim()
+                                    }}</label>
+                                    <label class="col-span-9">{{
+                                        factura?.dato_6.trim()
                                     }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBold col-span-3">{{
-                                        factura.des_etiq7.trim()
+                                        factura?.des_etiq7.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.dato_7.trim()
+                                        factura?.dato_7.trim()
                                     }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBold col-span-3">{{
-                                        factura.des_etiq8.trim()
+                                        factura?.des_etiq8.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.dato_8.trim()
+                                        factura?.dato_8.trim()
                                     }}</label>
                                 </div>
                             </div>
@@ -205,77 +208,77 @@
             <div class="mb-4">
                 <Accordion value="4">
                     <AccordionPanel value="0">
-                        <AccordionHeader>Datos estadísticos</AccordionHeader>
+                        <AccordionHeader>{{ t('estadisticos') }}</AccordionHeader>
                         <AccordionContent>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.titde1.trim()
+                                        factura?.titde1.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.nomde1.trim()
+                                        factura?.nomde1.trim()
                                     }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.titde2.trim()
+                                        factura?.titde2.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.nomde2.trim()
-                                    }}</label>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2">
-                                <div class="grid grid-cols-12 gap-4 p-1">
-                                    <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.titde3.trim()
-                                    }}</label>
-                                    <label class="col-span-9">{{
-                                        factura.nomde3.trim()
-                                    }}</label>
-                                </div>
-                                <div class="grid grid-cols-12 gap-4 p-1">
-                                    <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.titde4.trim()
-                                    }}</label>
-                                    <label class="col-span-9">{{
-                                        factura.nomde4.trim()
+                                        factura?.nomde2.trim()
                                     }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.titde5.trim()
+                                        factura?.titde3.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.nomde5.trim()
+                                        factura?.nomde3.trim()
                                     }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBolditalic col-span-3">{{
-                                        factura.titde6.trim()
+                                        factura?.titde4.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.nomde6.trim()
+                                        factura?.nomde4.trim()
+                                    }}</label>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <div class="grid grid-cols-12 gap-4 p-1">
+                                    <label class="font-TTCBolditalic col-span-3">{{
+                                        factura?.titde5.trim()
+                                    }}</label>
+                                    <label class="col-span-9">{{
+                                        factura?.nomde5.trim()
+                                    }}</label>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4 p-1">
+                                    <label class="font-TTCBolditalic col-span-3">{{
+                                        factura?.titde6.trim()
+                                    }}</label>
+                                    <label class="col-span-9">{{
+                                        factura?.nomde6.trim()
                                     }}</label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBold col-span-3">{{
-                                        factura.titde7.trim()
+                                        factura?.titde7.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.nomde7.trim()
+                                        factura?.nomde7.trim()
                                     }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-1">
                                     <label class="font-TTCBold col-span-3">{{
-                                        factura.titde8.trim()
+                                        factura?.titde8.trim()
                                     }}</label>
                                     <label class="col-span-9">{{
-                                        factura.nomde8.trim()
+                                        factura?.nomde8.trim()
                                     }}</label>
                                 </div>
                             </div>
@@ -287,7 +290,7 @@
             <div class="mb-4">
                 <Accordion value="5">
                     <AccordionPanel value="0">
-                        <AccordionHeader>Agentes</AccordionHeader>
+                        <AccordionHeader>{{ t('agentes') }}</AccordionHeader>
                         <AccordionContent>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="grid grid-cols-12 gap-4 p-2">
@@ -295,7 +298,7 @@
                                         >Agente 1:</label
                                     >
                                     <label class="col-span-9">{{
-                                        factura.nom_age1
+                                        factura?.nom_age1
                                     }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-2">
@@ -303,7 +306,7 @@
                                         >Agente 2:</label
                                     >
                                     <label class="col-span-9">{{
-                                        factura.nom_age2
+                                        factura?.nom_age2
                                     }}</label>
                                 </div>
                             </div>
@@ -315,7 +318,7 @@
             <div class="mb-4">
                 <Accordion value="6">
                     <AccordionPanel value="0">
-                        <AccordionHeader>Forma de pago</AccordionHeader>
+                        <AccordionHeader>{{ t('forma') }}</AccordionHeader>
                         <AccordionContent>
                             <DataTable
                                 showGridlines
@@ -358,7 +361,7 @@
             <div class="mb-4">
                 <Accordion value="5">
                     <AccordionPanel value="0">
-                        <AccordionHeader>Descuentos</AccordionHeader>
+                        <AccordionHeader>{{ t('descuentos') }}</AccordionHeader>
                         <AccordionContent>
                             <div
                                 class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -368,7 +371,7 @@
                                         <InputText
                                             class="text-right"
                                             disabled
-                                            :value="factura.descue" />
+                                            :value="factura?.descue" />
                                         <InputGroupAddon>
                                             <i class="pi pi-percentage"></i>
                                         </InputGroupAddon>
@@ -380,7 +383,7 @@
                                         <InputText
                                             class="text-right"
                                             disabled
-                                            :value="factura.descue2" />
+                                            :value="factura?.descue2" />
                                         <InputGroupAddon>
                                             <i class="pi pi-percentage"></i>
                                         </InputGroupAddon>
@@ -392,7 +395,7 @@
                                         <InputText
                                             class="text-right"
                                             disabled
-                                            :value="factura.descue3" />
+                                            :value="factura?.descue3" />
                                         <InputGroupAddon>
                                             <i class="pi pi-percentage"></i>
                                         </InputGroupAddon>
@@ -404,7 +407,7 @@
                                         <InputText
                                             class="text-right"
                                             disabled
-                                            :value="factura.descue4" />
+                                            :value="factura?.descue4" />
                                         <InputGroupAddon>
                                             <i class="pi pi-percentage"></i>
                                         </InputGroupAddon>
@@ -422,7 +425,7 @@
                     :totalRecords="partidas?.length"
                     :rows="partidas?.length">
                     <Column
-                        header="Cantidad"
+                        :header="t('cantidad')"
                         field="cant_prod"
                         bodyStyle="text-align: center"
                         :pt="{
@@ -431,7 +434,7 @@
                             }
                         }" />
                     <Column
-                        header="Unidad"
+                        :header="t('unidad')"
                         field="unidad"
                         bodyStyle="text-align: center"
                         :pt="{
@@ -440,7 +443,7 @@
                             }
                         }" />
                     <Column
-                        header="Producto"
+                        :header="t('producto')"
                         field="cve_prod"
                         bodyStyle="text-align: left"
                         :pt="{
@@ -449,7 +452,7 @@
                             }
                         }" />
                     <Column
-                        header="Atributo"
+                        :header="t('atributo')"
                         field="new_med"
                         bodyStyle="text-align: center"
                         :pt="{
@@ -466,7 +469,7 @@
                             }
                         }" /> -->
                     <Column
-                        header="Precio"
+                        :header="t('precio')"
                         field="valor_prod"
                         bodyStyle="text-align: right"
                         :pt="{
@@ -475,7 +478,7 @@
                             }
                         }" />
                     <Column
-                        header="Importe"
+                        :header="t('importe')"
                         field="imp_calg"
                         bodyStyle="text-align: right"
                         :pt="{
@@ -484,7 +487,7 @@
                             }
                         }" />
                     <Column
-                        header="Subtotal"
+                        :header="t('subtotal')"
                         field="sub_calg"
                         bodyStyle="text-align: right"
                         :pt="{
@@ -493,7 +496,7 @@
                             }
                         }" />
                     <Column
-                        header="Total"
+                        :header="t('total')"
                         field="tot_calg"
                         bodyStyle="text-align: right"
                         :pt="{
@@ -503,7 +506,7 @@
                         }" />
                 </DataTable>
             </div>
-            <Button type="button" label="Regresar" @click="$router.back()">
+            <Button type="button" :label="t('regresar')" @click="$router.back()">
                 <template #icon>
                     <i class="pi pi-arrow-left"></i>
                 </template>
@@ -511,3 +514,58 @@
         </div>
     </Transition>
 </template>
+
+<i18n lang="json">
+{
+    "es": {
+        "primero": "Primero",
+        "anterior": "Anterior",
+        "siguiente": "Siguiente",
+        "ultimo": "Ultimo",
+        "factura": "Factura",
+        "Contado": "Contado",
+        "Almacen": "Almacen",
+        "facturado": "Facturado a",
+        "entregado": "Entregado a",
+        "otros": "Otros datos",
+        "estadisticos": "Datos estadisticos",
+        "agentes": "Agentes",
+        "forma": "Forma de pago",
+        "descuentos": "Descuentos",
+        "cantidad": "Cantidad",
+        "unidad": "Unidad",
+        "producto": "Producto",
+        "atributo": "Atributo",
+        "precio": "Precio",
+        "importe": "Importe",
+        "subtotal": "Subtotal",
+        "total": "Total",
+        "regresar": "Regresar"
+    },
+    "en": {
+        "primero": "First",
+        "anterior": "Previous",
+        "siguiente": "Next",
+        "ultimo": "Last",
+        "factura": "Invoice",
+        "Contado": "Cash",
+        "Almacen": "Warehouse",
+        "facturado": "Billed to",
+        "entregado": "Delivered to",
+        "otros": "Other data",
+        "estadisticos": "Statistical data",
+        "agentes": "Agents",
+        "forma": "Payment method",
+        "descuentos": "Discounts",
+        "cantidad": "Quantity",
+        "unidad": "Unit",
+        "producto": "Product",
+        "atributo": "Attribute",
+        "precio": "Price",
+        "importe": "Amount",
+        "subtotal": "Subtotal",
+        "total": "Total",
+        "regresar": "Go back"
+    }
+}
+</i18n>

@@ -8,7 +8,6 @@
     });
 
     const { t } = useI18n({ useScope: 'local' });
-
     const { notifyError, askConfirm } = useNotifier();
     const authenticationStore = useAuthenticationStore();
     const password = ref('');

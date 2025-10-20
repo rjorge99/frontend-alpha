@@ -36,7 +36,7 @@
                 <!-- <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]"></i>
                 </button> -->
-                <!-- <div class="relative">
+                <div class="relative">
                     <button
                         v-styleclass="{
                             selector: '@next',
@@ -47,11 +47,11 @@
                             hideOnOutsideClick: true
                         }"
                         type="button"
-                        class="layout-topbar-action layout-topbar-action-highlight">
-                        <i class="pi pi-palette"></i>
+                        class="layout-topbar-action layout-topbar-action-highlight h-[21px]! w-[21px]!">
+                        <i class="pi pi-palette" style="font-size: 13px"></i>
                     </button>
                     <AppConfigurator />
-                </div> -->
+                </div>
             </div>
 
             <button
