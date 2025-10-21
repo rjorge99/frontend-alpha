@@ -21,7 +21,7 @@ export default defineNuxtConfig({
         '@nuxtjs/i18n',
         '@nuxt/eslint',
     ],
-    css: ['assets/css/primevuelayout/layout.scss', 'assets/css/tailwind.css'],
+    css: ['assets/css/layout/layout.scss', 'assets/css/primevuelayout/layout.scss', 'assets/css/tailwind.css'],
     primevue: {
         importTheme: { from: '~/themes/alpha-theme.js' },
         autoImport: false,

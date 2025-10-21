@@ -1,3 +1,3 @@
 <template>
-    <MenuDiagramatico />
+    <div>Content</div>
 </template>

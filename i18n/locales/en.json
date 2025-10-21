@@ -3,6 +3,7 @@
     "menu": {
         "home": "Home",
         "dashboard": "Dashboard",
-        "facturas": "Invoices"
+        "facturas": "Invoices",
+        "alpha": "Alpha"
     }
 }

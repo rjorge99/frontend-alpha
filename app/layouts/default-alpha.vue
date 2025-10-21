@@ -6,7 +6,7 @@ const router = useRoute();
 const componentClass = computed(() => {
     return {
         'sidebar-closed': !layoutStore.isSidebarShowing,
-        'outside-home': router.path !== '/',
+        'outside-home': router.path !== '/alpha',
         'lang-changing': appearence.isLanguageChanging.value,
     };
 });

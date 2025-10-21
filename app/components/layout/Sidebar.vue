@@ -5,7 +5,7 @@ const { t } = useI18n({ useScope: 'local' });
 <template>
     <div id="sidebar">
         <div id="sidebar-menu">
-            <NuxtLink to="detalle">{{ t('bienvenido') }}</NuxtLink>
+            <NuxtLink to="detalle" class="text-black">{{ t('bienvenido') }}</NuxtLink>
         </div>
         <SidebarFooter />
     </div>
