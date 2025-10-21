@@ -2,6 +2,9 @@
 
 <template>
     <div class="layout-footer">
-        <img src="~/assets/images/logo.png" width="40px" alt="Logo" />
+        <img
+            src="~/assets/images/logo.png"
+            width="40px"
+            alt="Logo">
     </div>
 </template>

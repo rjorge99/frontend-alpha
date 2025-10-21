@@ -1,49 +1,54 @@
 <script setup lang="ts">
-    import { FetchError } from 'ofetch';
-    import { MessageType } from '~/types/globals';
-    import type { LoginResponse } from '~/types/login';
+import type { FetchError } from 'ofetch';
+import type { LoginResponse } from '~/types/login';
+import { MessageType } from '~/types/globals';
 
-    definePageMeta({
-        layout: 'login'
-    });
+definePageMeta({
+    layout: 'login',
+});
 
-    const { t } = useI18n({ useScope: 'local' });
-    const { notifyError, askConfirm } = useNotifier();
-    const authenticationStore = useAuthenticationStore();
-    const password = ref('');
-    const username = ref('');
-    const empresaSeleccionada = ref({});
-    const liberarSesion = ref(false);
+const { t } = useI18n({ useScope: 'local' });
+const { notifyError, askConfirm } = useNotifier();
+const authenticationStore = useAuthenticationStore();
+const password = ref('');
+const username = ref('');
+const empresaSeleccionada = ref({});
+const liberarSesion = ref(false);
 
-    const loginUser = async () => {
-        try {
-            if (username.value.trim() === '' || password.value.trim() === '') return;
+async function loginUser() {
+    try {
+        if (username.value.trim() === '' || password.value.trim() === '')
+            return;
 
-            await authenticationStore.login(
-                username.value,
-                password.value,
-                liberarSesion.value,
-                empresaSeleccionada.value
-            );
-        } catch (_err: unknown) {
-            const err = _err as FetchError<LoginResponse>;
+        await authenticationStore.login(
+            username.value,
+            password.value,
+            liberarSesion.value,
+            empresaSeleccionada.value,
+        );
+    }
+    catch (_err: unknown) {
+        const err = _err as FetchError<LoginResponse>;
 
-            if (!err.data) return notifyError('A ocurrido un error.');
+        if (!err.data)
+            return notifyError('A ocurrido un error.');
 
-            if (err.data?.messageType === MessageType.Notificacion) {
-                username.value = '';
-                password.value = '';
-                notifyError(err.data?.message);
-            } else if (err.data?.messageType === MessageType.Confirmacion)
-                askConfirm({
-                    msg: err.data?.message,
-                    onAccept: () => {
-                        liberarSesion.value = true;
-                        loginUser();
-                    }
-                });
+        if (err.data?.messageType === MessageType.Notificacion) {
+            username.value = '';
+            password.value = '';
+            notifyError(err.data?.message);
         }
-    };
+        else if (err.data?.messageType === MessageType.Confirmacion) {
+            askConfirm({
+                msg: err.data?.message,
+                onAccept: () => {
+                    liberarSesion.value = true;
+                    loginUser();
+                },
+            });
+        }
+    }
+}
 </script>
 
 <template>
@@ -86,14 +91,14 @@
                         }}</label>
                         <InputText
                             id="username"
+                            v-model="username"
                             autofocus
                             name="usernmae"
                             autocomplete="username"
                             type="text"
-                            v-model="username"
                             placeholder="Username"
-                            @keydown.enter="loginUser"
-                            class="w-full px-3 py-2 shadow-sm rounded-full!" />
+                            class="w-full px-3 py-2 shadow-sm rounded-full!"
+                            @keydown.enter="loginUser" />
                     </div>
                     <div class="flex flex-col gap-1 w-full">
                         <label for="password1" class="font-medium leading-normal">{{
@@ -108,25 +113,23 @@
                             autocomplete="current-password"
                             :toggleMask="true"
                             :feedback="false"
-                            @keydown.enter="loginUser"
-                            input-class="w-full! rounded-full" />
+                            inputClass="w-full! rounded-full"
+                            @keydown.enter="loginUser" />
                     </div>
                     <div
                         class="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-3 sm:gap-0">
                         <div class="flex items-center gap-2"></div>
                         <a
-                            class="text-primary font-medium cursor-pointer hover:text-primary-emphasis"
-                            >{{ t('recordar') }}</a
-                        >
+                            class="text-primary font-medium cursor-pointer hover:text-primary-emphasis">{{ t('recordar') }}</a>
                     </div>
                 </div>
                 <Button
                     :label="t('entrar')"
                     icon="pi pi-user"
-                    @click="loginUser"
-                    class="w-full py-2 flex justify-center items-center gap-2">
+                    class="w-full py-2 flex justify-center items-center gap-2"
+                    @click="loginUser">
                     <template #icon>
-                        <i class="pi pi-user text-base! leading-normal!" />
+                        <i class="pi pi-user text-base! leading-normal!"></i>
                     </template>
                 </Button>
             </template>

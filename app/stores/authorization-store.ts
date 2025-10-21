@@ -30,13 +30,13 @@ export const useAuthorizationStore = defineStore(
 
         return {
             permisosUsuario,
-            setPermisosUsuario
+            setPermisosUsuario,
         };
     },
     {
         persist: {
-            storage: piniaPluginPersistedstate.sessionStorage()
+            storage: piniaPluginPersistedstate.sessionStorage(),
             // serializer:  encryptedSerializer // usado para serializar y deserializar los permisos
-        }
-    }
+        },
+    },
 );

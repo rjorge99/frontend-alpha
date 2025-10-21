@@ -1,9 +1,9 @@
 export enum MessageType {
     Notificacion = 0,
-    Confirmacion = 1
+    Confirmacion = 1,
 }
 
-export interface ListadoRequest {
+export type ListadoRequest = {
     inicio: number;
     fin: number;
-}
+};

@@ -1,20 +1,21 @@
 <script setup>
-    import LanguageSelector from '../layout/LanguageSelector.vue';
+import LanguageSelector from '../layout/LanguageSelector.vue';
 
-    const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
+const { toggleMenu } = useLayout();
 
-    const authenticationStore = useAuthenticationStore();
-    const uiStore = useUiStore();
-    const { askConfirm } = useNotifier();
-    const { logout } = authenticationStore;
+const authenticationStore = useAuthenticationStore();
+const uiStore = useUiStore();
+const { askConfirm } = useNotifier();
+const { logout } = authenticationStore;
 
-    const logoutUser = () => {
-        askConfirm({
-            msg: 'Si está trabajando con otra sesión o pestaña del navegador también terminará ahí la sesión. \n\r ¿Está seguro que desea salir del sistema?',
-            onAccept: logout
-        });
-    };
+function logoutUser() {
+    askConfirm({
+        msg: 'Si está trabajando con otra sesión o pestaña del navegador también terminará ahí la sesión. \n\r ¿Está seguro que desea salir del sistema?',
+        onAccept: logout,
+    });
+}
 </script>
+
 <template>
     <div class="layout-topbar">
         <div class="layout-topbar-logo-container">
@@ -44,7 +45,7 @@
                             enterActiveClass: 'animate-scalein',
                             leaveToClass: 'hidden',
                             leaveActiveClass: 'animate-fadeout',
-                            hideOnOutsideClick: true
+                            hideOnOutsideClick: true,
                         }"
                         type="button"
                         class="layout-topbar-action layout-topbar-action-highlight h-[21px]! w-[21px]!">
@@ -55,15 +56,15 @@
             </div>
 
             <button
-                class="layout-topbar-menu-button layout-topbar-action"
                 v-styleclass="{
                     selector: '@next',
                     enterFromClass: 'hidden',
                     enterActiveClass: 'animate-scalein',
                     leaveToClass: 'hidden',
                     leaveActiveClass: 'animate-fadeout',
-                    hideOnOutsideClick: true
-                }">
+                    hideOnOutsideClick: true,
+                }"
+                class="layout-topbar-menu-button layout-topbar-action">
                 <i class="pi pi-ellipsis-v"></i>
             </button>
 

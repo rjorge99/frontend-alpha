@@ -1,62 +1,61 @@
 <script setup>
-    const { layoutConfig, layoutState, isSidebarActive } = useLayout();
-    const { isChangingLanguage } = useAppearence();
-    const { locale } = useI18n();
-    const outsideClickListener = ref(null);
-    const appearence = useAppearence();
+const { layoutConfig, layoutState, isSidebarActive } = useLayout();
+const outsideClickListener = ref(null);
+const appearence = useAppearence();
 
-    watch(isSidebarActive, (newVal) => {
-        if (newVal) {
-            bindOutsideClickListener();
-        } else {
-            unbindOutsideClickListener();
-        }
-    });
+watch(isSidebarActive, (newVal) => {
+    if (newVal) {
+        bindOutsideClickListener();
+    }
+    else {
+        unbindOutsideClickListener();
+    }
+});
 
-    const containerClass = computed(() => {
-        return {
-            'layout-overlay': layoutConfig.menuMode === 'overlay',
-            'layout-static': layoutConfig.menuMode === 'static',
-            'layout-static-inactive':
-                layoutState.staticMenuDesktopInactive &&
-                layoutConfig.menuMode === 'static',
-            'layout-overlay-active': layoutState.overlayMenuActive,
-            'layout-mobile-active': layoutState.staticMenuMobileActive,
-            'lang-changing': appearence.isLanguageChanging.value
+const containerClass = computed(() => {
+    return {
+        'layout-overlay': layoutConfig.menuMode === 'overlay',
+        'layout-static': layoutConfig.menuMode === 'static',
+        'layout-static-inactive':
+                layoutState.staticMenuDesktopInactive
+                && layoutConfig.menuMode === 'static',
+        'layout-overlay-active': layoutState.overlayMenuActive,
+        'layout-mobile-active': layoutState.staticMenuMobileActive,
+        'lang-changing': appearence.isLanguageChanging.value,
+    };
+});
+
+function bindOutsideClickListener() {
+    if (!outsideClickListener.value) {
+        outsideClickListener.value = (event) => {
+            if (isOutsideClicked(event)) {
+                layoutState.overlayMenuActive = false;
+                layoutState.staticMenuMobileActive = false;
+                layoutState.menuHoverActive = false;
+            }
         };
-    });
-
-    function bindOutsideClickListener() {
-        if (!outsideClickListener.value) {
-            outsideClickListener.value = (event) => {
-                if (isOutsideClicked(event)) {
-                    layoutState.overlayMenuActive = false;
-                    layoutState.staticMenuMobileActive = false;
-                    layoutState.menuHoverActive = false;
-                }
-            };
-            document.addEventListener('click', outsideClickListener.value);
-        }
+        document.addEventListener('click', outsideClickListener.value);
     }
+}
 
-    function unbindOutsideClickListener() {
-        if (outsideClickListener.value) {
-            document.removeEventListener('click', outsideClickListener);
-            outsideClickListener.value = null;
-        }
+function unbindOutsideClickListener() {
+    if (outsideClickListener.value) {
+        document.removeEventListener('click', outsideClickListener);
+        outsideClickListener.value = null;
     }
+}
 
-    function isOutsideClicked(event) {
-        const sidebarEl = document.querySelector('.layout-sidebar');
-        const topbarEl = document.querySelector('.layout-menu-button');
+function isOutsideClicked(event) {
+    const sidebarEl = document.querySelector('.layout-sidebar');
+    const topbarEl = document.querySelector('.layout-menu-button');
 
-        return !(
-            sidebarEl.isSameNode(event.target) ||
-            sidebarEl.contains(event.target) ||
-            topbarEl.isSameNode(event.target) ||
-            topbarEl.contains(event.target)
-        );
-    }
+    return !(
+        sidebarEl.isSameNode(event.target)
+        || sidebarEl.contains(event.target)
+        || topbarEl.isSameNode(event.target)
+        || topbarEl.contains(event.target)
+    );
+}
 </script>
 
 <template>
@@ -65,7 +64,7 @@
         <AppSidebar />
         <div class="layout-main-container">
             <div class="layout-main relative">
-                <slot />
+                <slot></slot>
             </div>
             <AppFooter />
         </div>

@@ -1,51 +1,52 @@
 <script setup lang="ts">
-    import type { Factura, FacturaListado } from '~/types/facturas';
+import type { Factura, FacturaListado } from '~/types/facturas';
 
-    const listadoRequest = reactive({
-        inicio: 1,
-        fin: 20
+const listadoRequest = reactive({
+    inicio: 1,
+    fin: 20,
+});
+const { t } = useI18n({ useScope: 'local' });
+const { width } = useBreakpoint();
+const tableSize = computed(() => {
+    if (width.value >= 2000)
+        return 'medium';
+    return 'small';
+});
+
+const {
+    data: listadoFacturas,
+    execute,
+    pending,
+} = await useApiLazyFetch<FacturaListado>(
+    'api/empresas/1/clientes/facturas/listado',
+    {
+        method: 'POST',
+        server: false,
+        watch: false,
+        body: listadoRequest,
+    },
+);
+
+async function selectFactura({ data: factura }: { data: Factura }) {
+    await navigateTo({
+        path: '/facturas/detail',
+        query: {
+            clave: factura.cve_factu.trim(),
+            folio: factura.no_fac.trim(),
+        },
     });
-    const { t } = useI18n({ useScope: 'local' });
-    const { width } = useBreakpoint();
-    const tableSize = computed(() => {
-        if (width.value >= 2000) return 'medium';
-        return 'small';
-    });
+}
 
-    const {
-        data: listadoFacturas,
-        execute,
-        pending
-    } = await useApiLazyFetch<FacturaListado>(
-        'api/empresas/1/clientes/facturas/listado',
-        {
-            method: 'POST',
-            server: false,
-            watch: false,
-            body: listadoRequest
-        }
-    );
+function rowClass() {
+    return ['cursor-pointer'];
+}
 
-    const selectFactura = async ({ data: factura }: { data: Factura }) => {
-        await navigateTo({
-            path: '/facturas/detail',
-            query: {
-                clave: factura.cve_factu.trim(),
-                folio: factura.no_fac.trim()
-            }
-        });
-    };
-
-    const rowClass = () => {
-        return ['cursor-pointer'];
-    };
-
-    const onPageChange = (data: any) => {
-        const registrosInicio: number = data.page * 20;
-        listadoRequest.inicio = registrosInicio + 1;
-        listadoRequest.fin = registrosInicio + 20;
-        execute();
-    };
+function onPageChange(data: any) {
+    const registrosInicio: number = data.page * 20;
+    listadoRequest.inicio = registrosInicio + 1;
+    listadoRequest.fin = registrosInicio + 20;
+    execute();
+}
 </script>
 
 <template>
@@ -65,7 +66,7 @@
             :rows="20"
             :rowClass="rowClass"
             lazy
-            @rowSelect="selectFactura"
+            @row-select="selectFactura"
             @page="onPageChange">
             <template #header>
                 <div>
@@ -76,7 +77,7 @@
             <Column :header="t('folio')" field="no_fac" />
             <Column :header="t('fecha')" field="falta_fac" />
             <Column :header="t('seg')" bodyStyle="text-align: center">
-                <template #body="slotProps">
+                <template #body="">
                     <i
                         class="pi pi-chevron-circle-right"
                         style="font-size: 20px; color: #10b981"></i>

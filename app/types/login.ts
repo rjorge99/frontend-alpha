@@ -1,14 +1,14 @@
 import type { MessageType } from './globals';
 
-export interface LoginResponse {
+export type LoginResponse = {
     message: string;
     messageType: MessageType;
     nombreEmpresa: string;
     token: string;
     permisos: any;
-}
+};
 
-export interface PermisosUsuario {
+export type PermisosUsuario = {
     almforz1: string;
     almforz2: string;
     almstnm: string; // "false" tipo string
@@ -209,4 +209,4 @@ export interface PermisosUsuario {
     psm134: string;
     psm135: string;
     psm136: string;
-}
+};

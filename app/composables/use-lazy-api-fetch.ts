@@ -6,6 +6,6 @@ export const useApiLazyFetch: typeof useFetch = (request: string, opts?: any) =>
         baseURL: config.public.baseURL,
         credentials: 'include',
         headers,
-        ...opts
+        ...opts,
     });
 };

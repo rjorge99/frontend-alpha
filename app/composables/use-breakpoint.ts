@@ -6,16 +6,16 @@ const breakpoints = [
     { name: 'lg', min: 1024 },
     { name: 'md', min: 768 },
     { name: 'sm', min: 640 },
-    { name: 'xs', min: 0 }
+    { name: 'xs', min: 0 },
 ];
 
-const breakpointValues = Object.fromEntries(breakpoints.map((bp) => [bp.name, bp.min]));
+const breakpointValues = Object.fromEntries(breakpoints.map(bp => [bp.name, bp.min]));
 
-const getBreakpoint = (width: number) => {
-    return breakpoints.find((bp) => width >= bp.min)?.name || 'xs';
-};
+function getBreakpoint(width: number) {
+    return breakpoints.find(bp => width >= bp.min)?.name || 'xs';
+}
 
-export const useBreakpoint = () => {
+export function useBreakpoint() {
     const initialWidth = import.meta.client ? window.innerWidth : 0;
     const current = ref(getBreakpoint(initialWidth));
     const width = ref(initialWidth);
@@ -37,6 +37,6 @@ export const useBreakpoint = () => {
         width,
         values: breakpointValues,
         up,
-        down
+        down,
     };
-};
+}

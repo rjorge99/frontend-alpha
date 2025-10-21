@@ -1,6 +1,6 @@
 import * as signalR from '@microsoft/signalr';
 
-export const useSignalR = (hubUrl: string) => {
+export function useSignalR(hubUrl: string) {
     const config = useRuntimeConfig();
     const connection = ref<signalR.HubConnection | null>(null);
     const isConnected = ref<boolean>(false);
@@ -8,7 +8,8 @@ export const useSignalR = (hubUrl: string) => {
 
     // Conectar
     const connect = async () => {
-        if (connection.value) return;
+        if (connection.value)
+            return;
 
         connection.value = new signalR.HubConnectionBuilder()
             .withUrl(hubUrl)
@@ -19,7 +20,8 @@ export const useSignalR = (hubUrl: string) => {
             await connection.value.start();
             isConnected.value = true;
             console.log(`✅ Conectado a ${hubUrl}`);
-        } catch (err) {
+        }
+        catch (err) {
             console.error(`❌ Error al conectar a ${hubUrl}:`, err);
         }
     };
@@ -41,7 +43,8 @@ export const useSignalR = (hubUrl: string) => {
 
     // Invocar métodos en el Hub
     const invoke = async (method: string, ...args: any[]) => {
-        if (!connection.value) return;
+        if (!connection.value)
+            return;
         return connection.value.invoke(method, ...args);
     };
 
@@ -51,6 +54,6 @@ export const useSignalR = (hubUrl: string) => {
     return {
         on,
         invoke,
-        isConnected
+        isConnected,
     };
-};
+}

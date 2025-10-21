@@ -1,4 +1,4 @@
-export const useNotifier = () => {
+export function useNotifier() {
     const confirm = useConfirm();
     const toast = useToast();
 
@@ -8,7 +8,7 @@ export const useNotifier = () => {
             summary: 'Mensaje',
             detail: msg,
             life: 3000,
-            group: 'br'
+            group: 'br',
         });
 
     const notifyError = (msg: string) =>
@@ -17,7 +17,7 @@ export const useNotifier = () => {
             summary: 'Mensaje',
             detail: msg,
             life: 3000,
-            group: 'br'
+            group: 'br',
         });
 
     const notifyInfo = (msg: string) =>
@@ -26,7 +26,7 @@ export const useNotifier = () => {
             summary: 'Mensaje',
             detail: msg,
             life: 3000,
-            group: 'br'
+            group: 'br',
         });
 
     const askConfirm = (props: {
@@ -41,7 +41,7 @@ export const useNotifier = () => {
             reject: props.onAccept,
             accept: props.onReject || (() => {}),
             acceptLabel: 'No',
-            rejectLabel: 'Si'
+            rejectLabel: 'Si',
         });
     };
 
@@ -49,6 +49,6 @@ export const useNotifier = () => {
         notifySuccess,
         notifyError,
         notifyInfo,
-        askConfirm
+        askConfirm,
     };
-};
+}

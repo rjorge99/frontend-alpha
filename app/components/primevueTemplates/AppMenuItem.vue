@@ -1,47 +1,46 @@
 <script setup>
-const route = useRoute();
-const { layoutState, setActiveMenuItem, toggleMenu } = useLayout();
-
 const props = defineProps({
     item: {
         type: Object,
-        default: () => ({})
+        default: () => ({}),
     },
     index: {
         type: Number,
-        default: 0
+        default: 0,
     },
     root: {
         type: Boolean,
-        default: true
+        default: true,
     },
     parentItemKey: {
         type: String,
-        default: null
-    }
+        default: null,
+    },
 });
+const route = useRoute();
+const { layoutState, setActiveMenuItem, toggleMenu } = useLayout();
 
 const isActiveMenu = ref(false);
 const itemKey = ref(null);
 
 onBeforeMount(() => {
     itemKey.value = props.parentItemKey
-        ? props.parentItemKey + '-' + props.index
+        ? `${props.parentItemKey}-${props.index}`
         : String(props.index);
 
     const activeItem = layoutState.activeMenuItem;
 
-    isActiveMenu.value =
-        activeItem === itemKey.value || activeItem
-            ? activeItem.startsWith(itemKey.value + '-')
+    isActiveMenu.value
+        = activeItem === itemKey.value || activeItem
+            ? activeItem.startsWith(`${itemKey.value}-`)
             : false;
 });
 
 watch(
     () => layoutState.activeMenuItem,
     (newVal) => {
-        isActiveMenu.value = newVal === itemKey.value || newVal.startsWith(itemKey.value + '-');
-    }
+        isActiveMenu.value = newVal === itemKey.value || newVal.startsWith(`${itemKey.value}-`);
+    },
 );
 
 function itemClick(event, item) {
@@ -51,14 +50,14 @@ function itemClick(event, item) {
     }
 
     if (
-        (item.to || item.url) &&
-        (layoutState.staticMenuMobileActive || layoutState.overlayMenuActive)
+        (item.to || item.url)
+        && (layoutState.staticMenuMobileActive || layoutState.overlayMenuActive)
     ) {
         toggleMenu();
     }
 
     if (item.command) {
-        item.command({ originalEvent: event, item: item });
+        item.command({ originalEvent: event, item });
     }
 
     const foundItemKey = item.items
@@ -71,7 +70,7 @@ function itemClick(event, item) {
 }
 
 function checkActiveRoute(item) {
-    let to = item.to.replace('/', '');
+    const to = item.to.replace('/', '');
     return to && route.path.includes(to);
 }
 </script>
@@ -84,23 +83,23 @@ function checkActiveRoute(item) {
         <a
             v-if="(!item.to || item.items) && item.visible !== false"
             :href="item.url"
-            @click="itemClick($event, item, index)"
             :class="item.class"
             :target="item.target"
-            tabindex="0">
+            tabindex="0"
+            @click="itemClick($event, item, index)">
             <i :class="item.icon" class="layout-menuitem-icon"></i>
             <span class="layout-menuitem-text">{{ item.label }}</span>
-            <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
+            <i v-if="item.items" class="pi pi-fw pi-angle-down layout-submenu-toggler"></i>
         </a>
         <router-link
             v-if="item.to && !item.items && item.visible !== false"
-            @click="itemClick($event, item, index)"
             :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
             tabindex="0"
-            :to="item.to">
+            :to="item.to"
+            @click="itemClick($event, item, index)">
             <i :class="item.icon" class="layout-menuitem-icon"></i>
             <span class="layout-menuitem-text">{{ item.label }}</span>
-            <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
+            <i v-if="item.items" class="pi pi-fw pi-angle-down layout-submenu-toggler"></i>
         </router-link>
         <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
             <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
@@ -110,7 +109,7 @@ function checkActiveRoute(item) {
                     :index="i"
                     :item="child"
                     :parentItemKey="itemKey"
-                    :root="false"></AppMenuItem>
+                    :root="false" />
             </ul>
         </Transition>
     </li>

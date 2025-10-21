@@ -2,12 +2,12 @@ const menus = [
     {
         label: 'dashboard',
         icon: 'pi pi-home',
-        to: '/'
+        to: '/',
     },
-    { label: 'facturas', icon: 'pi pi-file', to: '/facturas' }
+    { label: 'facturas', icon: 'pi pi-file', to: '/facturas' },
 ];
 
-export const useMenu = () => {
+export function useMenu() {
     const { t } = useI18n();
     // const auth = useAuthorizationStore(); // para tener los permisos cargados al momento de login
 
@@ -21,10 +21,10 @@ export const useMenu = () => {
         return [
             {
                 label: t('menu.home'),
-                items
-            }
+                items,
+            },
         ];
     });
 
     return { menuItems };
-};
+}

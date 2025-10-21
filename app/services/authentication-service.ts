@@ -5,7 +5,7 @@ export const authService = {
         username: string,
         password: string,
         liberarSesion: boolean,
-        empresaSeleccioada: object
+        empresaSeleccioada: object,
     ): Promise<LoginResponse> {
         const uiStore = useUiStore();
         const config = useRuntimeConfig();
@@ -20,15 +20,16 @@ export const authService = {
                         username,
                         password,
                         liberarSesion,
-                        empresaSeleccionada: JSON.stringify([empresaSeleccioada])
-                    }
-                }
+                        empresaSeleccionada: JSON.stringify([empresaSeleccioada]),
+                    },
+                },
             );
 
             uiStore.setLoading(false);
 
             return data;
-        } catch (err: unknown) {
+        }
+        catch (err: unknown) {
             uiStore.setLoading(false);
             throw err;
         }
@@ -36,5 +37,5 @@ export const authService = {
     logout() {
         const config = useRuntimeConfig();
         useApiFetch(`${config.public.baseURL}api/authentication/logout`);
-    }
+    },
 };

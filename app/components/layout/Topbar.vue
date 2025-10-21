@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    const layoutStore = useLayoutStore();
+const layoutStore = useLayoutStore();
 </script>
 
 <template>

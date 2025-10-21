@@ -1,15 +1,15 @@
-export interface FacturaListado {
+export type FacturaListado = {
     registros: Factura[];
     totalRegistros: number;
-}
+};
 
-export interface FacturaResponse {
+export type FacturaResponse = {
     factura: DetalleFactura;
     partidas: Partida[];
     formaPago: FormaPago[];
-}
+};
 
-export interface DetalleFactura {
+export type DetalleFactura = {
     cve_cte: string;
     tel1_cte: string;
     fax_cte: string;
@@ -141,9 +141,9 @@ export interface DetalleFactura {
     editde: string;
     ladam_cte: string;
     movil_cte: string;
-}
+};
 
-export interface Partida {
+export type Partida = {
     imagpath: string;
     cant_prod: string; // Si prefieres número: number;
     unidad: string;
@@ -177,9 +177,9 @@ export interface Partida {
     imp_calg: string;
     sub_calg: string;
     tot_calg: string;
-}
+};
 
-export interface FormaPago {
+export type FormaPago = {
     cveFactu: string;
     noFac: string;
     tipo: string;
@@ -190,9 +190,9 @@ export interface FormaPago {
     sucDepo: string;
     numetarje: string;
     cantsubc: number | string;
-}
+};
 
-export interface Factura {
+export type Factura = {
     sucursal: string;
     nom_age: string;
     nom_cte: string;
@@ -211,4 +211,4 @@ export interface Factura {
     codestatus: string;
     nombre_dev: string;
     nombre_acu: string;
-}
+};

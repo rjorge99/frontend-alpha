@@ -6,19 +6,20 @@ export default defineNuxtConfig({
     components: [
         {
             path: '~/components',
-            pathPrefix: false
-        }
+            pathPrefix: false,
+        },
     ],
     alias: {},
     vite: {
-        plugins: [tailwindcss()]
+        plugins: [tailwindcss()],
     },
     modules: [
         '@primevue/nuxt-module',
         '@pinia/nuxt',
         'pinia-plugin-persistedstate/nuxt',
         '@vueuse/nuxt',
-        '@nuxtjs/i18n'
+        '@nuxtjs/i18n',
+        '@nuxt/eslint',
     ],
     css: ['assets/css/primevuelayout/layout.scss', 'assets/css/tailwind.css'],
     primevue: {
@@ -41,9 +42,9 @@ export default defineNuxtConfig({
                 'SelectButton',
                 'Toast',
                 'InputGroupAddon',
-                'InputGroup'
-            ]
-        }
+                'InputGroup',
+            ],
+        },
     },
     i18n: {
         defaultLocale: 'es',
@@ -52,16 +53,21 @@ export default defineNuxtConfig({
             {
                 code: 'es',
                 name: 'Spanish',
-                file: 'es.json'
+                file: 'es.json',
             },
             {
                 code: 'en',
                 name: 'English',
-                file: 'en.json'
-            }
-        ]
+                file: 'en.json',
+            },
+        ],
     },
     piniaPluginPersistedstate: {
-        key: 'alpha-%id'
-    }
+        key: 'alpha-%id',
+    },
+    eslint: {
+        config: {
+            standalone: false,
+        },
+    },
 });

@@ -19,14 +19,14 @@ export const useLayoutStore = defineStore(
             isSidebarShowing,
             toggleSidebar,
             closeSidebar,
-            openSidebar
+            openSidebar,
         };
     },
     {
         persist: {
             storage: piniaPluginPersistedstate.cookies({
-                path: '/'
-            })
-        }
-    }
+                path: '/',
+            }),
+        },
+    },
 );

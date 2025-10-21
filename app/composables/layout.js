@@ -3,7 +3,7 @@ const layoutConfig = reactive({
     primary: 'emerald',
     surface: null,
     darkTheme: false,
-    menuMode: 'static'
+    menuMode: 'static',
 });
 
 const layoutState = reactive({
@@ -13,7 +13,7 @@ const layoutState = reactive({
     configSidebarVisible: false,
     staticMenuMobileActive: false,
     menuHoverActive: false,
-    activeMenuItem: null
+    activeMenuItem: null,
 });
 
 export function useLayout() {
@@ -42,15 +42,16 @@ export function useLayout() {
         }
 
         if (window.innerWidth > 991) {
-            layoutState.staticMenuDesktopInactive =
-                !layoutState.staticMenuDesktopInactive;
-        } else {
+            layoutState.staticMenuDesktopInactive
+                = !layoutState.staticMenuDesktopInactive;
+        }
+        else {
             layoutState.staticMenuMobileActive = !layoutState.staticMenuMobileActive;
         }
     };
 
     const isSidebarActive = computed(
-        () => layoutState.overlayMenuActive || layoutState.staticMenuMobileActive
+        () => layoutState.overlayMenuActive || layoutState.staticMenuMobileActive,
     );
 
     const isDarkTheme = computed(() => layoutConfig.darkTheme);
@@ -68,6 +69,6 @@ export function useLayout() {
         getPrimary,
         getSurface,
         setActiveMenuItem,
-        toggleDarkMode
+        toggleDarkMode,
     };
 }

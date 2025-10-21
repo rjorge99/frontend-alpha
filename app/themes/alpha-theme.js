@@ -63,27 +63,27 @@ const AlphaPreset = definePreset(Aura, {
                 //     900: '{alpha.900}',
                 //     950: '{alpha.950}'
                 // }
-            }
-        }
+            },
+        },
     },
     components: {
         button: {
             root: {
-                borderRadius: 'calc(infinity * 1px)' // usar atributo rounded
-            }
-        }
-    }
+                borderRadius: 'calc(infinity * 1px)', // usar atributo rounded
+            },
+        },
+    },
 });
 
 export default {
     preset: AlphaPreset,
     options: {
         prefix: 'p',
-        darkModeSelector: '.app-dark'
+        darkModeSelector: '.app-dark',
         // cssLayer: {
         //     //todo: Genera flachazos al sobreescribir los estilos, aun al compilar genera el flachazo
         //     name: 'primevue',
         //     order: 'theme, base, primevue'
         // }
-    }
+    },
 };

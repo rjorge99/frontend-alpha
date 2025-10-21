@@ -1,16 +1,16 @@
 <script setup lang="ts">
-    const { currentTheme, setTheme } = useAppearence();
+const { currentTheme, setTheme } = useAppearence();
 
-    const themes = [
-        { label: 'Alpha', value: 'alpha' },
-        { label: 'Orange', value: 'orange' },
-        { label: 'Blue', value: 'blue' }
-    ];
-    const selectedTheme = ref(currentTheme.value);
+const themes = [
+    { label: 'Alpha', value: 'alpha' },
+    { label: 'Orange', value: 'orange' },
+    { label: 'Blue', value: 'blue' },
+];
+const selectedTheme = ref(currentTheme.value);
 
-    const onThemeChange = () => {
-        setTheme(selectedTheme.value);
-    };
+function onThemeChange() {
+    setTheme(selectedTheme.value);
+}
 </script>
 
 <template>

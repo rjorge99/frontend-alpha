@@ -31,12 +31,12 @@ export const useUiStore = defineStore(
             setLoading,
             loadMenuItems,
             setNombreEmpresa,
-            reset
+            reset,
         };
     },
     {
         persist: {
-            storage: piniaPluginPersistedstate.sessionStorage()
-        }
-    }
+            storage: piniaPluginPersistedstate.sessionStorage(),
+        },
+    },
 );

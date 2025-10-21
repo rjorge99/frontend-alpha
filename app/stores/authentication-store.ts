@@ -11,13 +11,13 @@ export const useAuthenticationStore = defineStore(
             username: string,
             password: string,
             liberarSesion: boolean,
-            empresaSeleccionada: object
+            empresaSeleccionada: object,
         ) => {
             const data = await authService.login(
                 username,
                 password,
                 liberarSesion,
-                empresaSeleccionada
+                empresaSeleccionada,
             );
 
             authToken.value = data.token;
@@ -38,12 +38,12 @@ export const useAuthenticationStore = defineStore(
         return {
             authToken,
             login,
-            logout
+            logout,
         };
     },
     {
         persist: {
-            storage: piniaPluginPersistedstate.cookies()
-        }
-    }
+            storage: piniaPluginPersistedstate.cookies(),
+        },
+    },
 );

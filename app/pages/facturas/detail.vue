@@ -1,70 +1,71 @@
 <script setup lang="ts">
-    import type {
-        DetalleFactura,
-        FacturaResponse,
-        FormaPago,
-        Partida
-    } from '~/types/facturas';
+import type {
+    DetalleFactura,
+    FacturaResponse,
+    FormaPago,
+    Partida,
+} from '~/types/facturas';
 
-    const { t } = useI18n({ useScope: 'local' });
-    const route = useRoute();
-    const router = useRouter();
-    const uiStore = useUiStore();
-    const clave = computed(() => route.query.clave);
-    const folio = computed(() => route.query.folio);
-    const pasu = ref(0);
+const { t } = useI18n({ useScope: 'local' });
+const route = useRoute();
+const router = useRouter();
+const uiStore = useUiStore();
+const clave = computed(() => route.query.clave);
+const folio = computed(() => route.query.folio);
+const pasu = ref(0);
 
-    const factura = ref<DetalleFactura | null>(null);
-    const partidas = ref<Partida[] | null>(null);
-    const formaPago = ref<FormaPago[] | null>(null);
+const factura = ref<DetalleFactura | null>(null);
+const partidas = ref<Partida[] | null>(null);
+const formaPago = ref<FormaPago[] | null>(null);
 
-    const { execute } = useApiLazyFetch<FacturaResponse>(
-        'api/empresas/1/clientes/facturas/detalle',
-        {
-            method: 'POST',
-            body: {
-                clave,
-                folio,
-                pasu
-            },
-            server: false,
-            watch: false,
-            onRequest: () => {
-                // uiStore.setLoading(true);
-            },
-            onResponse: async ({ response }) => {
-                uiStore.setLoading(false);
-                const _data = response._data as any;
-                factura.value = response._data?.factura as DetalleFactura;
-                formaPago.value = [...(response._data?.formaPago as FormaPago[])];
-                partidas.value = response._data?.partidas as Partida[];
-                router.replace({
-                    query: {
-                        clave: factura.value.cve_factu.trim(),
-                        folio: factura.value.no_fac.trim()
-                    }
-                });
-            }
-        }
-    );
+const { execute } = useApiLazyFetch<FacturaResponse>(
+    'api/empresas/1/clientes/facturas/detalle',
+    {
+        method: 'POST',
+        body: {
+            clave,
+            folio,
+            pasu,
+        },
+        server: false,
+        watch: false,
+        onRequest: () => {
+            // uiStore.setLoading(true);
+        },
+        onResponse: async ({ response }) => {
+            uiStore.setLoading(false);
+            const _data = response._data as any;
+            factura.value = response._data?.factura as DetalleFactura;
+            formaPago.value = [...(response._data?.formaPago as FormaPago[])];
+            partidas.value = response._data?.partidas as Partida[];
+            router.replace({
+                query: {
+                    clave: factura.value.cve_factu.trim(),
+                    folio: factura.value.no_fac.trim(),
+                },
+            });
+        },
+    },
+);
 
-    function irPrimero() {
-        pasu.value = 1;
-        execute();
-    }
-    function irAnterior() {
-        pasu.value = 2;
-        execute();
-    }
-    function irSiguiente() {
-        pasu.value = 3;
-        execute();
-    }
-    function irUltimo() {
-        pasu.value = 4;
-        execute();
-    }
+function irPrimero() {
+    pasu.value = 1;
+    execute();
+}
+function irAnterior() {
+    pasu.value = 2;
+    execute();
+}
+function irSiguiente() {
+    pasu.value = 3;
+    execute();
+}
+function irUltimo() {
+    pasu.value = 4;
+    execute();
+}
 </script>
+
 <template>
     <Transition name="fade">
         <div v-if="factura" class="font-TTCRegular 3xl:text-2xl">
@@ -294,17 +295,13 @@
                         <AccordionContent>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="grid grid-cols-12 gap-4 p-2">
-                                    <label class="col-span-3 text-right font-TTCBold"
-                                        >Agente 1:</label
-                                    >
+                                    <label class="col-span-3 text-right font-TTCBold">Agente 1:</label>
                                     <label class="col-span-9">{{
                                         factura?.nom_age1
                                     }}</label>
                                 </div>
                                 <div class="grid grid-cols-12 gap-4 p-2">
-                                    <label class="col-span-3 text-right font-TTCBold"
-                                        >Agente 2:</label
-                                    >
+                                    <label class="col-span-3 text-right font-TTCBold">Agente 2:</label>
                                     <label class="col-span-9">{{
                                         factura?.nom_age2
                                     }}</label>
@@ -331,8 +328,8 @@
                                     bodyStyle="text-align: center"
                                     :pt="{
                                         columnHeaderContent: {
-                                            class: 'justify-center                                            '
-                                        }
+                                            class: 'justify-center                                            ',
+                                        },
                                     }" />
                                 <Column
                                     field="subtipo"
@@ -340,8 +337,8 @@
                                     bodyStyle="text-align: center"
                                     :pt="{
                                         columnHeaderContent: {
-                                            class: 'justify-center                                            '
-                                        }
+                                            class: 'justify-center                                            ',
+                                        },
                                     }" />
                                 <Column
                                     field="cantsub"
@@ -349,8 +346,8 @@
                                     bodyStyle="text-align: center"
                                     :pt="{
                                         columnHeaderContent: {
-                                            class: 'justify-center                                            '
-                                        }
+                                            class: 'justify-center                                            ',
+                                        },
                                     }" />
                             </DataTable>
                         </AccordionContent>
@@ -430,8 +427,8 @@
                         bodyStyle="text-align: center"
                         :pt="{
                             columnHeaderContent: {
-                                class: 'justify-center                                            '
-                            }
+                                class: 'justify-center                                            ',
+                            },
                         }" />
                     <Column
                         :header="t('unidad')"
@@ -439,8 +436,8 @@
                         bodyStyle="text-align: center"
                         :pt="{
                             columnHeaderContent: {
-                                class: 'justify-center                                            '
-                            }
+                                class: 'justify-center                                            ',
+                            },
                         }" />
                     <Column
                         :header="t('producto')"
@@ -448,8 +445,8 @@
                         bodyStyle="text-align: left"
                         :pt="{
                             columnHeaderContent: {
-                                class: 'justify-center                                            '
-                            }
+                                class: 'justify-center                                            ',
+                            },
                         }" />
                     <Column
                         :header="t('atributo')"
@@ -457,8 +454,8 @@
                         bodyStyle="text-align: center"
                         :pt="{
                             columnHeaderContent: {
-                                class: 'justify-center                                            '
-                            }
+                                class: 'justify-center                                            ',
+                            },
                         }" />
                     <!-- <Column
                         header="Moneda"
@@ -474,8 +471,8 @@
                         bodyStyle="text-align: right"
                         :pt="{
                             columnHeaderContent: {
-                                class: 'justify-center                                            '
-                            }
+                                class: 'justify-center                                            ',
+                            },
                         }" />
                     <Column
                         :header="t('importe')"
@@ -483,8 +480,8 @@
                         bodyStyle="text-align: right"
                         :pt="{
                             columnHeaderContent: {
-                                class: 'justify-center                                            '
-                            }
+                                class: 'justify-center                                            ',
+                            },
                         }" />
                     <Column
                         :header="t('subtotal')"
@@ -492,8 +489,8 @@
                         bodyStyle="text-align: right"
                         :pt="{
                             columnHeaderContent: {
-                                class: 'justify-center                                            '
-                            }
+                                class: 'justify-center                                            ',
+                            },
                         }" />
                     <Column
                         :header="t('total')"
@@ -501,12 +498,15 @@
                         bodyStyle="text-align: right"
                         :pt="{
                             columnHeaderContent: {
-                                class: 'justify-center                                            '
-                            }
+                                class: 'justify-center                                            ',
+                            },
                         }" />
                 </DataTable>
             </div>
-            <Button type="button" :label="t('regresar')" @click="$router.back()">
+            <Button
+                type="button"
+                :label="t('regresar')"
+                @click="$router.back()">
                 <template #icon>
                     <i class="pi pi-arrow-left"></i>
                 </template>

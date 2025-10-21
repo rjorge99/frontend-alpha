@@ -1,3 +1,5 @@
 <template>
-    <div class="flex justify-center items-center">MENU</div>
+    <div class="flex justify-center items-center">
+        MENU
+    </div>
 </template>

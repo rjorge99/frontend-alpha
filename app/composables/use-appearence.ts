@@ -1,6 +1,6 @@
 const isLanguageChanging = ref(false);
 
-export const useAppearence = () => {
+export function useAppearence() {
     const currentTheme = useCookie('alpha-theme', { default: () => 'alpha' });
     const { setLocale } = useI18n();
 
@@ -11,12 +11,14 @@ export const useAppearence = () => {
 
             // Quitar clases anteriores que empiecen con 'app-'
             html.classList.forEach((cls) => {
-                if (cls.startsWith(themeClassPrefix)) html.classList.remove(cls);
+                if (cls.startsWith(themeClassPrefix))
+                    html.classList.remove(cls);
             });
 
             // Quitar link de html
             const linkToRemove = document.getElementById('theme-css');
-            if (linkToRemove) linkToRemove.parentNode?.removeChild(linkToRemove);
+            if (linkToRemove)
+                linkToRemove.parentNode?.removeChild(linkToRemove);
 
             // Agregar clase correcta
             html.classList.add(`${themeClassPrefix}${themeName}`);
@@ -26,7 +28,8 @@ export const useAppearence = () => {
                 let link = document.getElementById(id) as HTMLLinkElement | null;
                 if (link) {
                     link.href = `/themes/${themeName}.css`;
-                } else {
+                }
+                else {
                     link = document.createElement('link');
                     link.id = id;
                     link.rel = 'stylesheet';
@@ -39,13 +42,14 @@ export const useAppearence = () => {
             currentTheme.value = themeName;
         };
 
-        if (!document.startViewTransition) applyTheme();
+        if (!document.startViewTransition)
+            applyTheme();
         else document.startViewTransition(applyTheme);
     };
 
     const changeLanguage = async (lang: 'es' | 'en') => {
         isLanguageChanging.value = true;
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 100));
         setLocale(lang);
 
         isLanguageChanging.value = false;
@@ -56,6 +60,6 @@ export const useAppearence = () => {
         setTheme,
 
         isLanguageChanging,
-        changeLanguage
+        changeLanguage,
     };
-};
+}
