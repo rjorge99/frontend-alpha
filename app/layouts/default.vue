@@ -1,75 +1,26 @@
-<script setup>
-const { layoutConfig, layoutState, isSidebarActive } = useLayout();
-const outsideClickListener = ref(null);
+<script setup lang="ts">
+const layoutStore = useLayoutStore();
 const appearence = useAppearence();
+const router = useRoute();
 
-watch(isSidebarActive, (newVal) => {
-    if (newVal) {
-        bindOutsideClickListener();
-    }
-    else {
-        unbindOutsideClickListener();
-    }
-});
-
-const containerClass = computed(() => {
+const componentClass = computed(() => {
     return {
-        'layout-overlay': layoutConfig.menuMode === 'overlay',
-        'layout-static': layoutConfig.menuMode === 'static',
-        'layout-static-inactive':
-                layoutState.staticMenuDesktopInactive
-                && layoutConfig.menuMode === 'static',
-        'layout-overlay-active': layoutState.overlayMenuActive,
-        'layout-mobile-active': layoutState.staticMenuMobileActive,
+        'sidebar-closed': !layoutStore.isSidebarShowing,
+        'outside-home': router.path !== '/',
         'lang-changing': appearence.isLanguageChanging.value,
     };
 });
-
-function bindOutsideClickListener() {
-    if (!outsideClickListener.value) {
-        outsideClickListener.value = (event) => {
-            if (isOutsideClicked(event)) {
-                layoutState.overlayMenuActive = false;
-                layoutState.staticMenuMobileActive = false;
-                layoutState.menuHoverActive = false;
-            }
-        };
-        document.addEventListener('click', outsideClickListener.value);
-    }
-}
-
-function unbindOutsideClickListener() {
-    if (outsideClickListener.value) {
-        document.removeEventListener('click', outsideClickListener);
-        outsideClickListener.value = null;
-    }
-}
-
-function isOutsideClicked(event) {
-    const sidebarEl = document.querySelector('.layout-sidebar');
-    const topbarEl = document.querySelector('.layout-menu-button');
-
-    return !(
-        sidebarEl.isSameNode(event.target)
-        || sidebarEl.contains(event.target)
-        || topbarEl.isSameNode(event.target)
-        || topbarEl.contains(event.target)
-    );
-}
 </script>
 
 <template>
-    <div class="layout-wrapper" :class="containerClass">
-        <AppTopbar />
-        <AppSidebar />
-        <div class="layout-main-container">
-            <div class="layout-main relative">
-                <slot></slot>
+    <div id="main-site" :class="componentClass">
+        <Topbar />
+        <div id="layout-lower-container">
+            <Sidebar />
+            <div id="lower-right-container">
+                <MainContent><slot></slot></MainContent>
+                <Footer />
             </div>
-            <AppFooter />
         </div>
-
-        <div class="layout-mask animate-fadein"></div>
     </div>
-    <Toast />
 </template>

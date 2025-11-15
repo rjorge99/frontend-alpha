@@ -5,7 +5,6 @@ const menus = [
         to: '/',
     },
     { label: 'facturas', icon: 'pi pi-file', to: '/facturas' },
-    { label: 'alpha', icon: 'pi pi-file', to: '/alpha' },
 ];
 
 export function useMenu() {

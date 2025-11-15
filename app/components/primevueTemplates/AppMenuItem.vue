@@ -93,6 +93,7 @@ function checkActiveRoute(item) {
         </a>
         <router-link
             v-if="item.to && !item.items && item.visible !== false"
+            class="menu-item"
             :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
             tabindex="0"
             :to="item.to"
@@ -115,4 +116,12 @@ function checkActiveRoute(item) {
     </li>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.menu-item {
+    color: var(--color-font-light);
+
+    &:hover {
+        color: var(--p-surface-dark);
+    }
+}
+</style>

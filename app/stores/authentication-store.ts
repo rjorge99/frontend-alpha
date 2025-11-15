@@ -23,7 +23,7 @@ export const useAuthenticationStore = defineStore(
             authToken.value = data.token;
             authorizationStore.setPermisosUsuario(data.permisos);
             uiStore.setNombreEmpresa(data.nombreEmpresa);
-            await navigateTo('/');
+            await navigateTo('/alpha');
         };
 
         const logout = async () => {

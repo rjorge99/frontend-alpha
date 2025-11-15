@@ -28,7 +28,6 @@
     --color-surface-highlight: var(--p-surface-highlight);
 
     --color-font-light: var(--p-font-light);
-
     --animate-infinite-scroll: infinite-scroll 40s linear infinite;
 
     @keyframes infinite-scroll {
