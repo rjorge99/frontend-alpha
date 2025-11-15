@@ -30,7 +30,7 @@ async function loginUser() {
     catch (_err: unknown) {
         const err = _err as FetchError<LoginResponse>;
 
-        if (!err.data)
+        if (!err.data || err.data?.statusCode === 404)
             return notifyError('A ocurrido un error.');
 
         if (err.data?.messageType === MessageType.Notificacion) {

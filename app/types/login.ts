@@ -6,6 +6,7 @@ export type LoginResponse = {
     nombreEmpresa: string;
     token: string;
     permisos: any;
+    statusCode: number;
 };
 
 export type PermisosUsuario = {
